@@ -12,7 +12,18 @@
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-  <div class="app-shell">
+  <section class="login-screen" id="loginScreen">
+    <form class="login-card" id="adminLoginForm">
+      <a class="brand" href="index.html"><span class="brand-mark"><span class="material-symbols-rounded">local_cafe</span></span><span><b>NgopiMalang</b><small>ADMIN STUDIO</small></span></a>
+      <h1>Masuk ke panel admin</h1><p>Gunakan akun admin yang sudah dibuat di Supabase.</p>
+      <label>Email<input type="email" name="email" required autocomplete="username"></label>
+      <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+      <button class="primary-button" type="submit">Masuk</button>
+      <div class="login-message" id="loginMessage" role="status">Memeriksa koneksi Supabase…</div>
+      <a href="index.html">Kembali ke website</a>
+    </form>
+  </section>
+  <div class="app-shell" id="adminApp" hidden>
     <aside class="sidebar" id="sidebar">
       <a class="brand" href="index.html"><span class="brand-mark"><span class="material-symbols-rounded">local_cafe</span></span><span><b>NgopiMalang</b><small>ADMIN STUDIO</small></span></a>
       <div class="side-label">RUANG KERJA</div>
@@ -30,7 +41,7 @@
         <div class="side-label">PREFERENSI</div>
         <button class="nav-item" data-view="settings"><span class="material-symbols-rounded">settings</span>Pengaturan</button>
         <a class="nav-item back-link" href="index.html"><span class="material-symbols-rounded">open_in_new</span>Lihat website</a>
-        <div class="admin-profile"><div class="avatar">AM</div><span><b>Admin Malang</b><small>Mode prototipe</small></span><span class="material-symbols-rounded profile-more">more_horiz</span></div>
+        <div class="admin-profile"><div class="avatar">AM</div><span><b>Admin Malang</b><small id="adminEmail">Admin Supabase</small></span><button id="adminLogout" class="quiet-button" type="button">Keluar</button></div>
       </div>
     </aside>
 
@@ -41,7 +52,7 @@
         <div class="top-actions"><div class="today"><span class="material-symbols-rounded">calendar_today</span><span id="todayLabel"></span></div><button class="icon-button" id="resetDemo" title="Reset data contoh" aria-label="Reset data contoh"><span class="material-symbols-rounded">restart_alt</span></button><a class="visit-button" href="index.html"><span class="material-symbols-rounded">visibility</span><span>Lihat website</span></a></div>
       </header>
       <section class="workspace">
-        <div class="prototype-notice"><span class="material-symbols-rounded">info</span><div><b>Mode prototipe terhubung</b><span>Panel membaca request, koreksi, dan laporan yang tersimpan dari website pada browser yang sama. GitHub Pages belum mengirim data pengunjung ke server bersama; perubahan kedai/foto/artikel belum mengubah konten publik.</span></div><button id="dismissNotice" aria-label="Tutup pemberitahuan">×</button></div>
+        <div class="prototype-notice"><span class="material-symbols-rounded">cloud_done</span><div><b>Database NgopiMalang terhubung</b><span>Panel ini membaca data dari Supabase. Perubahan kedai dan artikel akan disimpan pada project database.</span></div><button id="dismissNotice" aria-label="Tutup pemberitahuan">×</button></div>
         <div id="viewRoot"></div>
         <footer class="admin-footer">NgopiMalang Admin Studio <span>•</span> Panel pengelolaan komunitas</footer>
       </section>
