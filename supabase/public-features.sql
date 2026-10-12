@@ -1,6 +1,7 @@
 -- Jalankan sekali di Supabase SQL Editor untuk mengaktifkan peta keramaian
 -- upload foto, serta filter fasilitas kedai.
 alter table public.coffee_shops add column if not exists features text[] not null default '{}';
+alter table public.place_requests add column if not exists address text;
 
 do $$
 declare
@@ -68,4 +69,3 @@ drop policy if exists "Ngopi admins delete coffee shop photos" on storage.object
 create policy "Ngopi admins delete coffee shop photos"
 on storage.objects for delete to authenticated
 using (bucket_id = 'cafe-photos' and public.is_ngopi_admin());
-
