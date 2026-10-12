@@ -35,6 +35,7 @@ create table if not exists public.place_requests (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(name) between 2 and 120),
   area text not null check (char_length(area) between 2 and 180),
+  address text,
   notes text check (notes is null or char_length(notes) <= 1500),
   submitter text check (submitter is null or char_length(submitter) <= 100),
   status text not null default 'pending' check (status in ('pending','approved','rejected')),
@@ -126,4 +127,3 @@ grant select, insert, update, delete on public.admin_users, public.coffee_shops,
 create index if not exists crowd_reports_shop_created_idx on public.crowd_reports (shop_id, created_at desc);
 create index if not exists place_requests_status_created_idx on public.place_requests (status, created_at desc);
 create index if not exists articles_status_published_idx on public.articles (status, published_at desc);
-
