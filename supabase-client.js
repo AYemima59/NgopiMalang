@@ -38,11 +38,14 @@
         .on('postgres_changes', { event: '*', schema: 'public', table: 'shop_photos' }, callback)
         .subscribe();
     },
-    submitSuggestion: row => client ? db('place_requests').insert({ name: row.name, area: row.area, notes: row.notes || null, submitter: row.submitter || null }) : unavailable(),
+    submitSuggestion: row => client ? db('place_requests').insert({ name: row.name, area: row.area, address: row.address || null, notes: row.notes || null, submitter: row.submitter || null }) : unavailable(),
     submitCrowdReport: row => client ? db('crowd_reports').insert({ shop_id: row.shopId || null, shop_name: row.shopName || row.shop || null, level: row.level, area: row.area || null }) : unavailable(),
     submitCorrection: row => client ? db('corrections').insert({ shop_id: row.shopId || null, shop_name: row.shopName || row.shop || null, message: row.message, details: row.details || null }) : unavailable(),
     submitReview: row => client ? db('reviews').insert({ shop_id: row.shopId, rating: row.rating, message: row.message || null, status: 'pending' }) : unavailable(),
     signIn: (email, password) => client ? client.auth.signInWithPassword({ email, password }) : unavailable(),
+    signUp: (email, password, name) => client ? client.auth.signUp({ email, password, options: { data: { display_name: name } } }) : unavailable(),
+    signInWithGoogle: () => client ? client.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.href } }) : unavailable(),
+    getUser: () => client ? client.auth.getUser() : unavailable(),
     signOut: () => client ? client.auth.signOut() : unavailable(),
     getSession: () => client ? client.auth.getSession() : unavailable(),
     requestPasswordReset: (email, redirectTo) => client ? client.auth.resetPasswordForEmail(email, { redirectTo }) : unavailable(),
@@ -76,4 +79,3 @@
   };
   window.ngopiSupabase = api;
 })();
-
