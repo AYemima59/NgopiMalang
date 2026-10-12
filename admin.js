@@ -22,6 +22,8 @@
     activity:[]
   };
   let data = load();
+  let remoteMode = false;
+  let currentAdminUser = null;
   let currentView = 'overview';
   let toastTimer;
   const root = document.getElementById('viewRoot');
@@ -34,6 +36,7 @@
   const setSharedStatus = (key,id,status) => { const rows=readShared(key); writeShared(key,rows.map((row,i)=>((row.id||`${key}-${i}`)===id)?{...row,status}:row)); };
   const formatWhen = value => { if(!value)return 'Waktu tidak tersedia'; const date=new Date(value); return Number.isNaN(date.getTime())?String(value):new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(date); };
   function syncFromWebsite(){
+    if(remoteMode)return;
     const suggestions=readShared('ngopimalang:suggestions:v1');
     data.requests=suggestions.map((r,i)=>({id:r.id||`req-${i}`,name:r.name||r.values?.name||'Tempat tanpa nama',area:r.area||r.values?.area||r.address||'Area belum diisi',address:r.address||r.area||r.values?.area||r.notes||r.values?.notes||'Alamat belum diisi',submitted:formatWhen(r.createdAt),submitter:r.submitter||'Pengunjung',status:r.status||'Menunggu'}));
     const cafes={'1':{name:'Bataputih Space & Roastery',area:'Lowokwaru'},'2':{name:'Rumah Opa Heritage Cafe',area:'Klojen'},'3':{name:'Kopi Titik Koma Soehat',area:'Lowokwaru'},'4':{name:'Nakoa Cafe Borobudur',area:'Blimbing'},'5':{name:'Maha Kopi Kebun',area:'Kedungkandang'}};
@@ -75,11 +78,12 @@
   function closeModal(){ $('#modalBackdrop').hidden=true;document.body.style.overflow=''; }
   function shopForm(shop={}){openModal(shop.id?'Edit informasi kedai':'Tambah kedai',`<form id="shopForm"><div class="form-grid"><div class="field"><label>Nama kedai *</label><input name="name" required value="${esc(shop.name||'')}" placeholder="Contoh: Kopi Tepi Jalan"></div><div class="field"><label>Area *</label><select name="area" required><option value="">Pilih area</option>${['Klojen','Lowokwaru','Blimbing','Sukun','Kedungkandang'].map(a=>`<option ${shop.area===a?'selected':''}>${a}</option>`).join('')}</select></div><div class="field"><label>Rating awal</label><input name="rating" type="number" min="0" max="5" step="0.1" value="${esc(shop.rating||'0.0')}"></div><div class="field"><label>Status</label><select name="status"><option ${shop.status==='Aktif'?'selected':''}>Aktif</option><option ${shop.status==='Perlu tinjau'?'selected':''}>Perlu tinjau</option></select></div></div><div class="field"><label>Alamat</label><input name="address" value="${esc(shop.address||'')}" placeholder="Nama jalan dan nomor"></div><div class="field"><label>Foto utama</label><label class="photo-upload" for="shopPhotoInput"><span class="material-symbols-rounded">add_photo_alternate</span><b>Pilih foto dari perangkat</b><small>Foto hanya tersimpan lokal pada prototipe ini.</small><input id="shopPhotoInput" type="file" accept="image/*" hidden></label><div id="shopImagePreview"></div></div><div class="modal-actions"><button type="button" class="secondary-button" data-close-modal>Batal</button><button class="primary-button" type="submit">Simpan kedai</button></div></form>`);
     let photo=shop.image||''; const fi=$('#shopPhotoInput'); fi.addEventListener('change',()=>{const file=fi.files?.[0];if(!file)return;if(file.size>2*1024*1024){toast('Ukuran foto maksimal 2 MB untuk prototipe.');fi.value='';return;}const rd=new FileReader();rd.onload=()=>{photo=rd.result;$('#shopImagePreview').innerHTML=`<img class="image-preview" src="${photo}" alt="Pratinjau foto">`;};rd.readAsDataURL(file);});
-    $('#shopForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget);const item={...shop,id:shop.id||'s'+Date.now(),name:f.get('name').trim(),area:f.get('area'),rating:f.get('rating')||'0.0',status:f.get('status'),crowd:shop.crowd||'Belum ada laporan',image:photo,address:f.get('address').trim()};if(shop.id)data.shops=data.shops.map(x=>x.id===shop.id?item:x);else data.shops.unshift(item);save();closeModal();render();toast('Data kedai tersimpan di browser ini.');});
+    $('#shopForm').addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.currentTarget);if(remoteMode){const item={name:f.get('name').trim(),area:f.get('area'),address:f.get('address').trim(),status:f.get('status')==='Aktif'?'approved':'pending',image_url:photo.startsWith('http')?photo:(shop.image||null)};const result=await window.ngopiSupabase.saveShop(item,shop.id);if(result.error){toast(result.error.message||'Gagal menyimpan kedai.');return;}closeModal();await activateAdmin(currentAdminUser);toast('Kedai tersimpan di Supabase.');return;}const item={...shop,id:shop.id||'s'+Date.now(),name:f.get('name').trim(),area:f.get('area'),rating:f.get('rating')||'0.0',status:f.get('status'),crowd:shop.crowd||'Belum ada laporan',image:photo,address:f.get('address').trim()};if(shop.id)data.shops=data.shops.map(x=>x.id===shop.id?item:x);else data.shops.unshift(item);save();closeModal();render();toast('Data kedai tersimpan di browser ini.');});
   }
-  function articleForm(article={}){openModal(article.id?'Edit artikel':'Tulis artikel',`<form id="articleForm"><div class="field"><label>Judul artikel *</label><input name="title" required value="${esc(article.title||'')}" placeholder="Judul yang menarik"></div><div class="form-grid"><div class="field"><label>Kategori</label><select name="category">${['Panduan Kampus','Healing & Alam','Nokturnal Guide','Cerita Kopi','Rekomendasi Area'].map(v=>`<option ${article.category===v?'selected':''}>${v}</option>`).join('')}</select></div><div class="field"><label>Status</label><select name="status"><option ${article.status==='Draft'?'selected':''}>Draft</option><option ${article.status==='Terbit'?'selected':''}>Terbit</option></select></div></div><div class="field"><label>Ringkasan</label><textarea name="summary" placeholder="Ringkasan singkat untuk pembaca...">${esc(article.summary||'')}</textarea></div><div class="field"><label>URL gambar sampul</label><input name="image" type="url" value="${esc(article.image||'')}" placeholder="https://..."><small class="form-hint">Unggah dan hosting foto sungguhan memerlukan penyimpanan server.</small></div><div class="modal-actions"><button type="button" class="secondary-button" data-close-modal>Batal</button><button class="primary-button" type="submit">Simpan artikel</button></div></form>`);$('#articleForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget);const item={...article,id:article.id||'a'+Date.now(),title:f.get('title').trim(),category:f.get('category'),status:f.get('status'),summary:f.get('summary').trim(),image:f.get('image').trim(),date:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})};if(article.id)data.articles=data.articles.map(x=>x.id===article.id?item:x);else data.articles.unshift(item);save();closeModal();render();toast('Artikel tersimpan sebagai data prototipe.');});}
+  function articleForm(article={}){openModal(article.id?'Edit artikel':'Tulis artikel',`<form id="articleForm"><div class="field"><label>Judul artikel *</label><input name="title" required value="${esc(article.title||'')}" placeholder="Judul yang menarik"></div><div class="form-grid"><div class="field"><label>Kategori</label><select name="category">${['Panduan Kampus','Healing & Alam','Nokturnal Guide','Cerita Kopi','Rekomendasi Area'].map(v=>`<option ${article.category===v?'selected':''}>${v}</option>`).join('')}</select></div><div class="field"><label>Status</label><select name="status"><option ${article.status==='Draft'?'selected':''}>Draft</option><option ${article.status==='Terbit'?'selected':''}>Terbit</option></select></div></div><div class="field"><label>Ringkasan</label><textarea name="summary" placeholder="Ringkasan singkat untuk pembaca...">${esc(article.summary||'')}</textarea></div><div class="field"><label>URL gambar sampul</label><input name="image" type="url" value="${esc(article.image||'')}" placeholder="https://..."><small class="form-hint">Unggah dan hosting foto sungguhan memerlukan penyimpanan server.</small></div><div class="modal-actions"><button type="button" class="secondary-button" data-close-modal>Batal</button><button class="primary-button" type="submit">Simpan artikel</button></div></form>`);$('#articleForm').addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.currentTarget);if(remoteMode){const title=f.get('title').trim();const slug=(article.slug||title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));const item={title,slug,category:f.get('category'),status:f.get('status')==='Terbit'?'published':'draft',summary:f.get('summary').trim(),image_url:f.get('image').trim()||null,published_at:f.get('status')==='Terbit'?new Date().toISOString():null};const result=await window.ngopiSupabase.saveArticle(item,article.id);if(result.error){toast(result.error.message||'Gagal menyimpan artikel.');return;}closeModal();await activateAdmin(currentAdminUser);toast('Artikel tersimpan di Supabase.');return;}const item={...article,id:article.id||'a'+Date.now(),title:f.get('title').trim(),category:f.get('category'),status:f.get('status'),summary:f.get('summary').trim(),image:f.get('image').trim(),date:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})};if(article.id)data.articles=data.articles.map(x=>x.id===article.id?item:x);else data.articles.unshift(item);save();closeModal();render();toast('Artikel tersimpan sebagai data prototipe.');});}
   function confirmAction(message,action){openModal('Konfirmasi',`<p style="font-size:12px;color:#68736c;line-height:1.6">${message}</p><div class="modal-actions"><button class="secondary-button" data-close-modal>Batal</button><button class="danger-button" id="confirmButton">Ya, lanjutkan</button></div>`);$('#confirmButton').addEventListener('click',()=>{closeModal();action();});}
   function doAction(action,id){
+    if(remoteMode){remoteAction(action,id);return;}
     if(action==='new-shop'){shopForm();return;} if(action==='edit-shop'){const s=data.shops.find(x=>x.id===id);if(s)shopForm(s);return;}
     if(action==='delete-shop'){const s=data.shops.find(x=>x.id===id);confirmAction(`Hapus <b>${esc(s?.name)}</b> dari data prototipe?`,()=>{data.shops=data.shops.filter(x=>x.id!==id);save();render();toast('Kedai dihapus dari data lokal.');});return;}
     if(action==='new-article'){articleForm();return;} if(action==='edit-article'){const a=data.articles.find(x=>x.id===id);if(a)articleForm(a);return;}
@@ -95,6 +99,35 @@
     if(action==='approve-review'||action==='hide-review'){const r=data.reviews.find(x=>x.id===id);if(r){r.status=action==='approve-review'?'Tayang':'Disembunyikan';save();render();toast('Status ulasan diperbarui lokal.');}return;}
     if(action==='reset-data'||action==='reset-confirm'){confirmAction('Semua perubahan lokal pada panel ini akan dihapus dan data contoh dipulihkan.',()=>{data=clone(starter);save();render();toast('Data contoh dipulihkan.');});return;}
   }
+  async function remoteAction(action,id){
+    try{
+      let result;
+      if(action==='approve-request'||action==='reject-request'){
+        const row=data.requests.find(x=>x.id===id);if(!row)return;
+        result=await window.ngopiSupabase.updateRow('place_requests',id,{status:action==='approve-request'?'approved':'rejected'});
+        if(action==='approve-request'){
+          const areas=['Klojen','Lowokwaru','Blimbing','Sukun','Kedungkandang'];
+          const area=areas.find(x=>(row.area+' '+row.address).toLowerCase().includes(x.toLowerCase()));
+          if(area){const inserted=await window.ngopiSupabase.insertRow('coffee_shops',{name:row.name,area,address:row.address,status:'approved'});if(inserted.error)throw inserted.error;}
+        }
+      }else if(action==='delete-request')result=await window.ngopiSupabase.deleteRow('place_requests',id);
+      else if(action==='review-correction')result=await window.ngopiSupabase.updateRow('corrections',id,{status:'reviewed'});
+      else if(action==='delete-correction')result=await window.ngopiSupabase.deleteRow('corrections',id);
+      else if(action==='approve-photo'||action==='reject-photo')result=await window.ngopiSupabase.updateRow('shop_photos',id,{status:action==='approve-photo'?'approved':'rejected'});
+      else if(action==='approve-review'||action==='hide-review')result=await window.ngopiSupabase.updateRow('reviews',id,{status:action==='approve-review'?'approved':'hidden'});
+      else if(action==='delete-shop')result=await window.ngopiSupabase.deleteRow('coffee_shops',id);
+      else if(action==='delete-article')result=await window.ngopiSupabase.deleteRow('articles',id);
+      else if(action==='edit-shop'){const s=data.shops.find(x=>x.id===id);if(s)shopForm(s);return;}
+      else if(action==='new-shop'){shopForm();return;}
+      else if(action==='edit-article'){const a=data.articles.find(x=>x.id===id);if(a)articleForm(a);return;}
+      else if(action==='new-article'){articleForm();return;}
+      else if(action==='shop-photo'||action==='upload-photo'){toast('Upload foto akan aktif setelah bucket Storage disiapkan.');return;}
+      else if(action==='resolve-crowd'){data.reviewedCrowd=[...new Set([...(data.reviewedCrowd||[]),id])];render();return;}
+      else return;
+      if(result?.error)throw result.error;
+      await activateAdmin(currentAdminUser);toast('Perubahan tersimpan di Supabase.');
+    }catch(err){console.error(err);toast(err.message||'Perubahan gagal disimpan ke Supabase.');}
+  }
   function bindDynamic(){root.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>{currentView=el.dataset.view;render();$('#sidebar').classList.remove('open');}));root.querySelectorAll('[data-action]').forEach(el=>el.addEventListener('click',()=>doAction(el.dataset.action,el.dataset.id)));const search=$('[data-search]',root);const filter=$('[data-filter]',root);const update=()=>{const q=(search?.value||'').toLowerCase().trim();const f=filter?.value||'';root.querySelectorAll('[data-searchable]').forEach(row=>{const okq=!q||row.dataset.searchable.includes(q);const okf=!f||row.dataset.status===f;row.style.display=okq&&okf?'':'none';});};search?.addEventListener('input',update);filter?.addEventListener('change',update);}
   document.querySelectorAll('.nav-item[data-view]').forEach(el=>el.addEventListener('click',()=>{currentView=el.dataset.view;render();$('#sidebar').classList.remove('open');}));
   document.addEventListener('click',e=>{const close=e.target.closest('[data-close-modal]');if(close)closeModal();if(e.target.id==='modalBackdrop')closeModal();const action=e.target.closest('[data-action]');if(action&&$('#modalBackdrop').contains(action))doAction(action.dataset.action,action.dataset.id);});
@@ -102,6 +135,26 @@
   $('#todayLabel').textContent=new Intl.DateTimeFormat('id-ID',{weekday:'short',day:'numeric',month:'short',year:'numeric'}).format(new Date());
   window.addEventListener('storage',e=>{if(['ngopimalang:suggestions:v1','ngopimalang:crowd-reports:v1','ngopimalang:corrections:v1'].includes(e.key)){render();toast('Data website diperbarui dari tab lain di browser ini.');}});
   window.addEventListener('focus',()=>render());
-  render();
+  async function activateAdmin(user){
+    const message=$('#loginMessage');
+    message.textContent='Memuat data dari Supabase…';
+    try{
+      const result=await window.ngopiSupabase.loadAdminData();
+      if(result.error)throw result.error;
+      const rows=result.data;
+      const statusMap={pending:'Menunggu',approved:'Disetujui',rejected:'Ditolak',reviewed:'Ditinjau',published:'Terbit',draft:'Draft',hidden:'Disembunyikan'};
+      data={...clone(starter),shops:rows.coffee_shops.map(s=>({id:s.id,name:s.name,area:s.area,address:s.address||'',rating:'0.0',status:s.status==='approved'?'Aktif':'Perlu tinjau',crowd:'Belum ada laporan',image:s.image_url||''})),requests:rows.place_requests.map(r=>({id:r.id,name:r.name,area:r.area,address:r.notes||r.area,submitter:r.submitter||'Pengunjung',submitted:formatWhen(r.created_at),status:statusMap[r.status]||'Menunggu'})),crowd:rows.crowd_reports.map(r=>({id:r.id,shop:r.shop_name||'Coffee shop',area:r.area||'Belum diketahui',level:r.level,reports:1,updated:formatWhen(r.created_at),source:'Laporan pengunjung'})),corrections:rows.corrections.map(r=>({id:r.id,name:r.shop_name||'Koreksi informasi',detail:r.message,createdAt:formatWhen(r.created_at),status:statusMap[r.status]||'Menunggu'})),reviews:rows.reviews.map(r=>({id:r.id,name:'Pengunjung',shop:r.shop_id,rating:r.rating,text:r.message||'',date:formatWhen(r.created_at),status:statusMap[r.status]||'Tinjau'})),articles:rows.articles.map(a=>({id:a.id,title:a.title,category:a.category||'Panduan lokal',status:statusMap[a.status]||'Draft',date:formatWhen(a.published_at||a.created_at),image:a.image_url||'',summary:a.summary||'',slug:a.slug||''})),photos:rows.shop_photos.map(p=>({id:p.id,shop:'Foto kedai',user:'Pengunjung',date:formatWhen(p.created_at),url:window.ngopiSupabase.publicPhotoUrl(p.storage_path),status:p.status}))};
+      remoteMode=true;currentAdminUser=user;$('#adminApp').hidden=false;$('#loginScreen').hidden=true;$('#adminEmail').textContent=user.email||'Admin Supabase';render();
+    }catch(err){message.textContent=err.message||'Tidak dapat membaca data admin. Periksa akun dan kebijakan RLS.';await window.ngopiSupabase.signOut();}
+  }
+  async function initRemote(){
+    const message=$('#loginMessage');
+    if(!window.ngopiSupabase?.configured){message.textContent='Konfigurasi Supabase belum tersedia.';return;}
+    $('#adminLoginForm').addEventListener('submit',async e=>{e.preventDefault();const form=new FormData(e.currentTarget);message.textContent='Memeriksa akun…';const {data:auth,error}=await window.ngopiSupabase.signIn(form.get('email'),form.get('password'));if(error){message.textContent='Email atau password belum cocok.';return;}await activateAdmin(auth.user);});
+    $('#adminLogout').addEventListener('click',async()=>{await window.ngopiSupabase.signOut();location.reload();});
+    const {data:session}=await window.ngopiSupabase.getSession();
+    if(session?.session)await activateAdmin(session.session.user);else message.textContent='Masuk dengan akun admin Supabase.';
+  }
+  if(window.ngopiSupabase?.configured)initRemote();else $('#loginMessage').textContent='Konfigurasi Supabase belum tersedia.';
 })();
 
