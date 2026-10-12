@@ -150,7 +150,29 @@
   async function initRemote(){
     const message=$('#loginMessage');
     if(!window.ngopiSupabase?.configured){message.textContent='Konfigurasi Supabase belum tersedia.';return;}
+    window.ngopiSupabase.onAuthStateChange((event)=>{
+      if(event==='PASSWORD_RECOVERY'){
+        $('#loginScreen').hidden=false;$('#adminLoginForm').hidden=true;$('#resetPasswordForm').hidden=false;
+        $('#resetMessage').textContent='Tautan valid. Masukkan password baru.';
+      }
+    });
     $('#adminLoginForm').addEventListener('submit',async e=>{e.preventDefault();const form=new FormData(e.currentTarget);message.textContent='Memeriksa akun…';const {data:auth,error}=await window.ngopiSupabase.signIn(form.get('email'),form.get('password'));if(error){const reason=String(error.message||'').toLowerCase();message.textContent=reason.includes('email not confirmed')?'Email akun belum dikonfirmasi. Periksa Authentication → Users di Supabase.':reason.includes('invalid login credentials')?'Supabase tidak menemukan kombinasi email dan password ini. Pastikan akun dibuat di project NgopiMalang atau reset password akun tersebut.':'Login gagal: '+(error.message||'periksa koneksi Supabase.');return;}await activateAdmin(auth.user);});
+    $('#forgotPassword').addEventListener('click',async()=>{
+      const email=$('#adminLoginForm').elements.email.value.trim();
+      if(!email){message.textContent='Isi email akun admin dulu, lalu pilih “Lupa password?”.';return;}
+      message.textContent='Mengirim tautan reset password…';
+      const {error}=await window.ngopiSupabase.requestPasswordReset(email,new URL('admin.html',location.href).href);
+      message.textContent=error?'Reset gagal: '+error.message:'Jika email terdaftar, tautan reset sudah dikirim. Periksa inbox dan folder spam.';
+    });
+    $('#resetPasswordForm').addEventListener('submit',async e=>{
+      e.preventDefault();const form=new FormData(e.currentTarget);const password=form.get('password');
+      if(password!==form.get('confirmPassword')){$('#resetMessage').textContent='Kedua password belum sama.';return;}
+      $('#resetMessage').textContent='Menyimpan password baru…';
+      const {error}=await window.ngopiSupabase.updatePassword(password);
+      if(error){$('#resetMessage').textContent='Gagal menyimpan password: '+error.message;return;}
+      await window.ngopiSupabase.signOut();$('#resetPasswordForm').hidden=true;$('#adminLoginForm').hidden=false;
+      $('#loginMessage').textContent='Password berhasil diganti. Silakan masuk dengan password baru.';
+    });
     $('#adminLogout').addEventListener('click',async()=>{await window.ngopiSupabase.signOut();location.reload();});
     const {data:session}=await window.ngopiSupabase.getSession();
     if(session?.session)await activateAdmin(session.session.user);else message.textContent='Masuk dengan akun admin Supabase.';
