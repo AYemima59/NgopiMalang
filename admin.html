@@ -20,7 +20,16 @@
       <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
       <button class="primary-button" type="submit">Masuk</button>
       <div class="login-message" id="loginMessage" role="status">Memeriksa koneksi Supabase…</div>
+      <button class="login-link-button" id="forgotPassword" type="button">Lupa password?</button>
       <a href="index.html">Kembali ke website</a>
+    </form>
+    <form class="login-card" id="resetPasswordForm" hidden>
+      <a class="brand" href="index.html"><span class="brand-mark"><span class="material-symbols-rounded">local_cafe</span></span><span><b>NgopiMalang</b><small>ADMIN STUDIO</small></span></a>
+      <h1>Buat password baru</h1><p>Gunakan password baru untuk akun admin kamu.</p>
+      <label>Password baru<input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+      <label>Ulangi password baru<input type="password" name="confirmPassword" required minlength="8" autocomplete="new-password"></label>
+      <button class="primary-button" type="submit">Simpan password</button>
+      <div class="login-message" id="resetMessage" role="status"></div>
     </form>
   </section>
   <div class="app-shell" id="adminApp" hidden>
