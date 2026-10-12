@@ -31,8 +31,9 @@ Jalankan `Jalankan website.bat`, lalu buka http://localhost:8000.
 - Direktori, detail kedai, pencarian, filter area/harga/fasilitas, rating, favorit, dan artikel terbit dibaca dari Supabase. Perubahan konten publik disinkronkan saat itu juga; ringkasan laporan keramaian diperbarui berkala.
 - Admin dapat menambah/mengubah kedai, artikel dan status publikasi, memoderasi ulasan, request tempat, koreksi, laporan keramaian, serta mengunggah foto.
 - Form usulan tempat, ulasan, koreksi, dan laporan keramaian menyimpan kiriman ke Supabase. Laporan keramaian adalah masukan sukarela dan diringkas untuk dua jam terakhir; website tidak membaca sinyal HP pengunjung.
+- Pengunjung dapat mendaftar/masuk melalui halaman akun Supabase untuk mengirim ulasan; email confirmation dan URL redirect diatur dari Authentication → URL Configuration.
+- Form admin menyediakan alamat lengkap, rentang harga, jam operasional, dan pilihan fasilitas yang langsung mengendalikan filter publik (nugas, malam, outdoor, hemat, Wi-Fi, dan stopkontak).
 - Foto disimpan di Supabase Storage. Aturan publikasi dan akses diatur oleh RLS pada database dan kebijakan bucket.
 - Favorit disimpan di browser pengunjung karena bersifat personal.
 
 Peta menampilkan pin ketika admin mengisi latitude dan longitude untuk kedai. Jika belum ada koordinat, pengunjung tetap dapat membuka pencarian lokasi kedai melalui Google Maps.
-
