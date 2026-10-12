@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — NgopiMalang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="index.html"><span class="brand-mark"><span class="material-symbols-rounded">local_cafe</span></span><span><b>NgopiMalang</b><small>ADMIN STUDIO</small></span></a>
+      <div class="side-label">RUANG KERJA</div>
+      <nav class="nav-list" aria-label="Menu admin">
+        <button class="nav-item active" data-view="overview"><span class="material-symbols-rounded">space_dashboard</span>Ringkasan</button>
+        <button class="nav-item" data-view="shops"><span class="material-symbols-rounded">storefront</span>Daftar kedai <span class="nav-count" id="shopCount">0</span></button>
+        <button class="nav-item" data-view="requests"><span class="material-symbols-rounded">add_business</span>Request tempat <span class="nav-count warm" id="requestCount">0</span></button>
+        <button class="nav-item" data-view="photos"><span class="material-symbols-rounded">photo_library</span>Moderasi foto <span class="nav-count warm" id="photoCount">0</span></button>
+        <button class="nav-item" data-view="crowd"><span class="material-symbols-rounded">groups</span>Laporan keramaian</button>
+        <button class="nav-item" data-view="corrections"><span class="material-symbols-rounded">fact_check</span>Koreksi informasi</button>
+        <button class="nav-item" data-view="reviews"><span class="material-symbols-rounded">reviews</span>Ulasan</button>
+        <button class="nav-item" data-view="articles"><span class="material-symbols-rounded">article</span>Artikel</button>
+      </nav>
+      <div class="side-bottom">
+        <div class="side-label">PREFERENSI</div>
+        <button class="nav-item" data-view="settings"><span class="material-symbols-rounded">settings</span>Pengaturan</button>
+        <a class="nav-item back-link" href="index.html"><span class="material-symbols-rounded">open_in_new</span>Lihat website</a>
+        <div class="admin-profile"><div class="avatar">AM</div><span><b>Admin Malang</b><small>Mode prototipe</small></span><span class="material-symbols-rounded profile-more">more_horiz</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button menu-toggle" id="menuToggle" aria-label="Buka menu"><span class="material-symbols-rounded">menu</span></button>
+        <div class="breadcrumb">Workspace <span>/</span> <b id="crumb">Ringkasan</b></div>
+        <div class="top-actions"><div class="today"><span class="material-symbols-rounded">calendar_today</span><span id="todayLabel"></span></div><button class="icon-button" id="resetDemo" title="Reset data contoh" aria-label="Reset data contoh"><span class="material-symbols-rounded">restart_alt</span></button><a class="visit-button" href="index.html"><span class="material-symbols-rounded">visibility</span><span>Lihat website</span></a></div>
+      </header>
+      <section class="workspace">
+        <div class="prototype-notice"><span class="material-symbols-rounded">info</span><div><b>Mode prototipe terhubung</b><span>Panel membaca request, koreksi, dan laporan yang tersimpan dari website pada browser yang sama. GitHub Pages belum mengirim data pengunjung ke server bersama; perubahan kedai/foto/artikel belum mengubah konten publik.</span></div><button id="dismissNotice" aria-label="Tutup pemberitahuan">×</button></div>
+        <div id="viewRoot"></div>
+        <footer class="admin-footer">NgopiMalang Admin Studio <span>•</span> Panel pengelolaan komunitas</footer>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop" id="modalBackdrop" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><div class="eyebrow">KELOLA DATA</div><h2 id="modalTitle">Tambah kedai</h2></div><button class="icon-button" data-close-modal aria-label="Tutup"><span class="material-symbols-rounded">close</span></button></div><div id="modalBody"></div></section></div>
+  <input id="photoPicker" type="file" accept="image/*" hidden>
+  <script src="admin.js"></script>
+</body>
+</html>
+
