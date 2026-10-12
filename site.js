@@ -208,10 +208,16 @@
       modal.innerHTML = '<form style="width:min(480px,100%);background:#fff8f5;padding:24px;border-radius:16px;display:grid;gap:12px"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font:600 22px Domine,serif;margin:0">Usulkan coffee shop</h2><button type="button" data-close aria-label="Tutup" style="border:0;background:none;font-size:24px">×</button></div><p style="margin:0;color:#504442;font-size:14px;line-height:1.5">Usulan ini hanya disimpan di browser ini pada versi pratinjau, belum dikirim ke pengelola.</p><label>Nama tempat<input required name="name" style="display:block;width:100%;box-sizing:border-box;padding:10px;margin-top:5px;border:1px solid #d3c3c0;border-radius:8px"></label><label>Area atau alamat<input required name="area" style="display:block;width:100%;box-sizing:border-box;padding:10px;margin-top:5px;border:1px solid #d3c3c0;border-radius:8px"></label><label>Catatan (opsional)<textarea name="notes" rows="3" style="display:block;width:100%;box-sizing:border-box;padding:10px;margin-top:5px;border:1px solid #d3c3c0;border-radius:8px"></textarea></label><button type="submit" style="background:#3e2723;color:white;border:0;border-radius:8px;padding:11px;font-weight:600">Simpan usulan di perangkat ini</button></form>';
       document.body.appendChild(modal);
       modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('[data-close]')) modal.style.display = 'none'; });
-      modal.querySelector('form').addEventListener('submit', e => {
-        e.preventDefault(); const data = Object.fromEntries(new FormData(e.currentTarget));
-        const rows = read(SUGGESTIONS_KEY, []); rows.push({ ...data, id: 'req-' + Date.now(), status: 'Menunggu', createdAt: new Date().toISOString() }); write(SUGGESTIONS_KEY, rows);
-        modal.style.display = 'none'; e.currentTarget.reset(); showModal('Usulan tersimpan', 'Usulan tersimpan di browser ini. Agar tampil di direktori publik, website perlu dihubungkan ke layanan penyimpanan dan proses moderasi.');
+      modal.querySelector('form').addEventListener('submit', async e => {
+        e.preventDefault(); const form=e.currentTarget; const data = Object.fromEntries(new FormData(form));
+        try {
+          if (window.ngopiSupabase?.configured) {
+            const {error}=await window.ngopiSupabase.submitSuggestion(data); if(error) throw error;
+          } else {
+            const rows = read(SUGGESTIONS_KEY, []); rows.push({ ...data, id: 'req-' + Date.now(), status: 'Menunggu', createdAt: new Date().toISOString() }); write(SUGGESTIONS_KEY, rows);
+          }
+          modal.style.display = 'none'; form.reset(); showModal('Usulan terkirim', window.ngopiSupabase?.configured ? 'Terima kasih! Usulanmu tersimpan di database NgopiMalang dan menunggu moderasi.' : 'Usulan tersimpan di browser ini. Buat dan hubungkan project Supabase agar usulan dibagikan ke admin.');
+        } catch (err) { showModal('Belum berhasil mengirim', 'Koneksi database bermasalah. Coba lagi beberapa saat.'); console.error(err); }
       });
     }
     modal.style.display = 'flex';
@@ -289,34 +295,48 @@
     notice.style.cssText = 'font:12px/1.5 "Work Sans",sans-serif;color:#504442;background:#f7ece7;border-radius:8px;padding:9px 11px;margin:10px 0 0';
     const voteButtons = document.querySelector('[onclick^="submitCrowdVote"]')?.parentElement?.parentElement;
     voteButtons?.appendChild(notice);
-    window.submitCrowdVote = status => {
-      const rows = read(REPORTS_KEY, []); rows.push({ id: 'crowd-' + Date.now(), cafeId: '1', status, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows.slice(-100));
+    window.submitCrowdVote = async status => {
+      try {
+      if (window.ngopiSupabase?.configured) { const {error}=await window.ngopiSupabase.submitCrowdReport({shop:'Bataputih Coffee & Space',level:status}); if(error) throw error; }
+      else { const rows = read(REPORTS_KEY, []); rows.push({ id: 'crowd-' + Date.now(), cafeId: '1', status, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows.slice(-100)); }
       document.querySelectorAll('h4').forEach(h => { if (/Belum ada laporan terbaru|Laporan Anda:/.test(h.textContent)) h.textContent = 'Laporan Anda: ' + status; });
       const updated = document.getElementById('last-updated-text'); if (updated) updated.textContent = 'Baru saja · di perangkat ini';
       const toast = document.getElementById('vote-toast');
-      if (toast) { toast.classList.remove('hidden'); toast.classList.add('flex'); const p = toast.querySelector('p'); if (p) p.textContent = 'Terima kasih! Laporan tersimpan di perangkat ini dan belum dibagikan ke pengguna lain.'; setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('flex'); }, 5000); }
+      if (toast) { toast.classList.remove('hidden'); toast.classList.add('flex'); const p = toast.querySelector('p'); if (p) p.textContent = window.ngopiSupabase?.configured ? 'Terima kasih! Laporan tersimpan di database dan dapat dilihat admin.' : 'Terima kasih! Laporan tersimpan di perangkat ini; hubungkan Supabase agar dibagikan.'; setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('flex'); }, 5000); }
+      } catch(err) { console.error(err); showModal('Belum berhasil mengirim', 'Laporan gagal dikirim ke database. Coba lagi.'); }
     };
   };
   const initForms = () => {
-    window.submitCorrection = e => {
+    let selectedCrowdLevel = '';
+    document.querySelectorAll('#report-modal button').forEach(btn => {
+      const level=(btn.innerText||'').trim();
+      if(!['Sepi','Sedang','Ramai'].includes(level)) return;
+      btn.addEventListener('click',()=>{selectedCrowdLevel=level;document.querySelectorAll('#report-modal button[aria-pressed="true"]').forEach(x=>x.setAttribute('aria-pressed','false'));btn.setAttribute('aria-pressed','true');});
+    });
+    window.submitCorrection = async e => {
       e.preventDefault(); const form = e.currentTarget;
-      const rows = read(CORRECTIONS_KEY, []); rows.push({ id: 'cor-' + Date.now(), values: Object.fromEntries(new FormData(form)), status: 'Menunggu', createdAt: new Date().toISOString() }); write(CORRECTIONS_KEY, rows);
+      const values=Object.fromEntries(new FormData(form));
+      try { if(window.ngopiSupabase?.configured){const {error}=await window.ngopiSupabase.submitCorrection({shop:values.shop||values.name,message:JSON.stringify(values)});if(error)throw error;} else {const rows = read(CORRECTIONS_KEY, []); rows.push({ id: 'cor-' + Date.now(), values, status: 'Menunggu', createdAt: new Date().toISOString() }); write(CORRECTIONS_KEY, rows);} }
+      catch(err){console.error(err);showModal('Belum berhasil mengirim','Koreksi gagal dikirim ke database. Coba lagi.');return;}
       if (typeof window.closeCorrectionModal === 'function') window.closeCorrectionModal();
-      showModal('Koreksi tersimpan', 'Koreksi ini disimpan di browser ini saja. Belum dikirim atau dipublikasikan karena versi ini belum memakai server.');
+      showModal('Koreksi terkirim', window.ngopiSupabase?.configured ? 'Terima kasih, koreksi tersimpan di database dan menunggu ditinjau.' : 'Koreksi tersimpan di browser ini. Hubungkan Supabase agar admin dapat menerimanya.');
     };
-    window.submitReportModal = () => {
+    window.submitReportModal = async () => {
       const modal = document.getElementById('report-modal');
-      const val = modal?.querySelector('select')?.value || 'Belum dipilih';
-      const rows = read(REPORTS_KEY, []); rows.push({ id: 'crowd-' + Date.now(), cafeId: '1', status: val, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows);
+      const val = selectedCrowdLevel;
+      if(!val){showModal('Pilih kondisi dulu','Pilih Sepi, Sedang, atau Ramai sebelum mengirim laporan.');return;}
+      const shop=modal?.querySelector('select')?.value?.replace(/\s*\([^)]*\)\s*$/,'')||'Coffee shop Malang';
+      try { if(window.ngopiSupabase?.configured){const {error}=await window.ngopiSupabase.submitCrowdReport({shop,level:val});if(error)throw error;} else {const rows = read(REPORTS_KEY, []); rows.push({ id: 'crowd-' + Date.now(), cafeId: '1', shop, status: val, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows);} }
+      catch(err){console.error(err);showModal('Belum berhasil mengirim','Laporan gagal dikirim ke database. Coba lagi.');return;}
       if (typeof window.closeReportModal === 'function') window.closeReportModal();
-      showModal('Laporan tersimpan', 'Status tersimpan di browser ini. Laporan ini belum terlihat oleh pengunjung lain.');
+      showModal('Laporan terkirim', window.ngopiSupabase?.configured ? 'Laporan tersimpan di database bersama.' : 'Status tersimpan di browser ini. Hubungkan Supabase agar laporan dibagikan.');
     };
     window.handleNewsletter = e => { e.preventDefault(); showModal('Pratinjau saja', 'Formulir buletin belum terhubung ke layanan email, jadi alamat tidak dikirim atau disimpan.'); };
     document.querySelectorAll('[data-correction]').forEach(btn => btn.addEventListener('click', () => {
       const note = window.prompt('Apa informasi yang perlu dikoreksi?');
       if (!note || !note.trim()) return;
-      const rows = read(CORRECTIONS_KEY, []); rows.push({ id: 'cor-' + Date.now(), note:note.trim(), status: 'Menunggu', createdAt:new Date().toISOString() }); write(CORRECTIONS_KEY, rows);
-      showModal('Koreksi tersimpan', 'Catatan tersimpan di browser ini dan belum dikirim ke pengelola.');
+      try { if(window.ngopiSupabase?.configured){const {error}=await window.ngopiSupabase.submitCorrection({message:note.trim()});if(error)throw error;} else {const rows = read(CORRECTIONS_KEY, []); rows.push({ id: 'cor-' + Date.now(), note:note.trim(), status: 'Menunggu', createdAt:new Date().toISOString() }); write(CORRECTIONS_KEY, rows);} showModal('Koreksi terkirim', window.ngopiSupabase?.configured?'Koreksi tersimpan di database dan menunggu ditinjau.':'Catatan tersimpan di browser ini. Hubungkan Supabase agar admin dapat menerimanya.'); }
+      catch(err){console.error(err);showModal('Belum berhasil mengirim','Koreksi gagal dikirim ke database. Coba lagi.');}
     }));
     document.querySelectorAll('[data-share]').forEach(btn => btn.addEventListener('click', async () => {
       const url = location.href;
