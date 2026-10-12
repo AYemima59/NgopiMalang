@@ -150,7 +150,7 @@
   async function initRemote(){
     const message=$('#loginMessage');
     if(!window.ngopiSupabase?.configured){message.textContent='Konfigurasi Supabase belum tersedia.';return;}
-    $('#adminLoginForm').addEventListener('submit',async e=>{e.preventDefault();const form=new FormData(e.currentTarget);message.textContent='Memeriksa akun…';const {data:auth,error}=await window.ngopiSupabase.signIn(form.get('email'),form.get('password'));if(error){message.textContent='Email atau password belum cocok.';return;}await activateAdmin(auth.user);});
+    $('#adminLoginForm').addEventListener('submit',async e=>{e.preventDefault();const form=new FormData(e.currentTarget);message.textContent='Memeriksa akun…';const {data:auth,error}=await window.ngopiSupabase.signIn(form.get('email'),form.get('password'));if(error){const reason=String(error.message||'').toLowerCase();message.textContent=reason.includes('email not confirmed')?'Email akun belum dikonfirmasi. Periksa Authentication → Users di Supabase.':reason.includes('invalid login credentials')?'Supabase tidak menemukan kombinasi email dan password ini. Pastikan akun dibuat di project NgopiMalang atau reset password akun tersebut.':'Login gagal: '+(error.message||'periksa koneksi Supabase.');return;}await activateAdmin(auth.user);});
     $('#adminLogout').addEventListener('click',async()=>{await window.ngopiSupabase.signOut();location.reload();});
     const {data:session}=await window.ngopiSupabase.getSession();
     if(session?.session)await activateAdmin(session.session.user);else message.textContent='Masuk dengan akun admin Supabase.';
