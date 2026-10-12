@@ -22,6 +22,7 @@ create table if not exists public.coffee_shops (
   description text,
   price_range text,
   opening_hours text,
+  features text[] not null default '{}',
   latitude double precision,
   longitude double precision,
   image_url text,
