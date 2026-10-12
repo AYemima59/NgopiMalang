@@ -11,8 +11,8 @@ Jalankan `Jalankan website.bat`, lalu buka http://localhost:8000.
 1. Buka [supabase.com/dashboard](https://supabase.com/dashboard), masuk atau buat akun.
 2. Pilih **New project**, pilih organisasi, isi nama `NgopiMalang`, buat database password yang kuat, pilih region terdekat yang tersedia, lalu tekan **Create new project**. Simpan password database di password manager; password itu tidak perlu dikirim ke Codex.
 3. Setelah project selesai dibuat, buka **SQL Editor → New query**. Salin seluruh isi `supabase/schema.sql`, tekan **Run**, dan pastikan query selesai tanpa error.
-4. Buka **Project Settings → API**. Salin **Project URL** dan **Publishable key** (pada project lama mungkin disebut `anon` key). Masukkan keduanya ke `supabase-config.js`, menggantikan nilai contoh.
-5. Tambahkan kedua nilai yang sama ke konfigurasi website, lalu deploy file website ke GitHub Pages.
+4. Buat query baru, salin seluruh isi `supabase/public-features.sql`, tekan **Run** untuk mengaktifkan ringkasan keramaian publik, penyimpanan foto, filter fasilitas, dan pembaruan langsung untuk konten publik.
+5. Buka **Project Settings → API**. Salin **Project URL** dan **Publishable key** (pada project lama mungkin disebut `anon` key). Masukkan keduanya ke `supabase-config.js`.
 6. Buat akun admin di **Authentication → Users → Add user**. Setelah user dibuat, salin UUID user itu dan jalankan di SQL Editor:
 
    ```sql
@@ -26,16 +26,13 @@ Jalankan `Jalankan website.bat`, lalu buka http://localhost:8000.
 
 `Project URL` dan `Publishable key` (atau `anon` key lama) memang dipakai di browser. Keamanan data berasal dari Row Level Security (RLS) yang sudah diaktifkan dalam skema. **Jangan masukkan `service_role` key, database password, atau access token ke file website atau GitHub.**
 
-## Apa yang tersambung saat ini
+## Fitur yang memakai Supabase
 
-- Form usulan tempat, laporan keramaian, dan koreksi informasi mengirim ke Supabase ketika URL dan key sudah diisi.
-- Jika Supabase belum dikonfigurasi, website mempertahankan mode pratinjau lokal menggunakan browser storage.
-- SQL menyiapkan tabel kedai, artikel, foto, ulasan, request, laporan keramaian, koreksi, dan daftar admin beserta aturan aksesnya.
-- Panel admin memakai Supabase Auth dan membaca antrian request, laporan, koreksi, ulasan, kedai, dan artikel dari database. Admin dapat memperbarui status moderasi serta menyimpan perubahan metadata kedai/artikel.
-- Upload foto ke Supabase Storage belum aktif. Halaman publik Jelajahi dan Artikel masih memakai konten statis; menayangkan data baru dari database ke halaman tersebut adalah tahap integrasi berikutnya.
-- Data keramaian berasal dari laporan sukarela pengunjung. Supabase menyimpan waktu dan pilihan sepi/sedang/ramai; website tidak membaca sinyal HP pengunjung.
+- Direktori, detail kedai, pencarian, filter area/harga/fasilitas, rating, favorit, dan artikel terbit dibaca dari Supabase. Perubahan konten publik disinkronkan saat itu juga; ringkasan laporan keramaian diperbarui berkala.
+- Admin dapat menambah/mengubah kedai, artikel dan status publikasi, memoderasi ulasan, request tempat, koreksi, laporan keramaian, serta mengunggah foto.
+- Form usulan tempat, ulasan, koreksi, dan laporan keramaian menyimpan kiriman ke Supabase. Laporan keramaian adalah masukan sukarela dan diringkas untuk dua jam terakhir; website tidak membaca sinyal HP pengunjung.
+- Foto disimpan di Supabase Storage. Aturan publikasi dan akses diatur oleh RLS pada database dan kebijakan bucket.
+- Favorit disimpan di browser pengunjung karena bersifat personal.
 
-## Catatan data contoh
-
-Informasi kedai, rating, harga, jam buka, foto, dan statistik contoh di halaman sekarang belum diverifikasi. Periksa sebelum dijadikan informasi publik.
+Peta menampilkan pin ketika admin mengisi latitude dan longitude untuk kedai. Jika belum ada koordinat, pengunjung tetap dapat membuka pencarian lokasi kedai melalui Google Maps.
 
