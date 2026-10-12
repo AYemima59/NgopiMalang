@@ -23,6 +23,9 @@
     listPublicShops: () => client ? client.from('coffee_shops').select('*').eq('status', 'approved').order('name') : unavailable(),
     listPublicArticles: () => client ? client.from('articles').select('*').eq('status', 'published').order('published_at', { ascending: false }) : unavailable(),
     signIn: (email,password) => client ? client.auth.signInWithPassword({email,password}) : unavailable(),
+    requestPasswordReset: (email,redirectTo) => client ? client.auth.resetPasswordForEmail(email,{redirectTo}) : unavailable(),
+    updatePassword: password => client ? client.auth.updateUser({password}) : unavailable(),
+    onAuthStateChange: callback => client ? client.auth.onAuthStateChange(callback) : null,
     signOut: () => client ? client.auth.signOut() : unavailable(),
     getSession: () => client ? client.auth.getSession() : unavailable(),
     loadAdminData: async () => {
