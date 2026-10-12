@@ -210,7 +210,7 @@
       modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('[data-close]')) modal.style.display = 'none'; });
       modal.querySelector('form').addEventListener('submit', e => {
         e.preventDefault(); const data = Object.fromEntries(new FormData(e.currentTarget));
-        const rows = read(SUGGESTIONS_KEY, []); rows.push({ ...data, createdAt: new Date().toISOString() }); write(SUGGESTIONS_KEY, rows);
+        const rows = read(SUGGESTIONS_KEY, []); rows.push({ ...data, id: 'req-' + Date.now(), status: 'Menunggu', createdAt: new Date().toISOString() }); write(SUGGESTIONS_KEY, rows);
         modal.style.display = 'none'; e.currentTarget.reset(); showModal('Usulan tersimpan', 'Usulan tersimpan di browser ini. Agar tampil di direktori publik, website perlu dihubungkan ke layanan penyimpanan dan proses moderasi.');
       });
     }
@@ -290,7 +290,7 @@
     const voteButtons = document.querySelector('[onclick^="submitCrowdVote"]')?.parentElement?.parentElement;
     voteButtons?.appendChild(notice);
     window.submitCrowdVote = status => {
-      const rows = read(REPORTS_KEY, []); rows.push({ cafeId: '1', status, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows.slice(-100));
+      const rows = read(REPORTS_KEY, []); rows.push({ id: 'crowd-' + Date.now(), cafeId: '1', status, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows.slice(-100));
       document.querySelectorAll('h4').forEach(h => { if (/Belum ada laporan terbaru|Laporan Anda:/.test(h.textContent)) h.textContent = 'Laporan Anda: ' + status; });
       const updated = document.getElementById('last-updated-text'); if (updated) updated.textContent = 'Baru saja · di perangkat ini';
       const toast = document.getElementById('vote-toast');
@@ -300,14 +300,14 @@
   const initForms = () => {
     window.submitCorrection = e => {
       e.preventDefault(); const form = e.currentTarget;
-      const rows = read(CORRECTIONS_KEY, []); rows.push({ values: Object.fromEntries(new FormData(form)), createdAt: new Date().toISOString() }); write(CORRECTIONS_KEY, rows);
+      const rows = read(CORRECTIONS_KEY, []); rows.push({ id: 'cor-' + Date.now(), values: Object.fromEntries(new FormData(form)), status: 'Menunggu', createdAt: new Date().toISOString() }); write(CORRECTIONS_KEY, rows);
       if (typeof window.closeCorrectionModal === 'function') window.closeCorrectionModal();
       showModal('Koreksi tersimpan', 'Koreksi ini disimpan di browser ini saja. Belum dikirim atau dipublikasikan karena versi ini belum memakai server.');
     };
     window.submitReportModal = () => {
       const modal = document.getElementById('report-modal');
       const val = modal?.querySelector('select')?.value || 'Belum dipilih';
-      const rows = read(REPORTS_KEY, []); rows.push({ cafeId: '1', status: val, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows);
+      const rows = read(REPORTS_KEY, []); rows.push({ id: 'crowd-' + Date.now(), cafeId: '1', status: val, createdAt: new Date().toISOString() }); write(REPORTS_KEY, rows);
       if (typeof window.closeReportModal === 'function') window.closeReportModal();
       showModal('Laporan tersimpan', 'Status tersimpan di browser ini. Laporan ini belum terlihat oleh pengunjung lain.');
     };
@@ -315,7 +315,7 @@
     document.querySelectorAll('[data-correction]').forEach(btn => btn.addEventListener('click', () => {
       const note = window.prompt('Apa informasi yang perlu dikoreksi?');
       if (!note || !note.trim()) return;
-      const rows = read(CORRECTIONS_KEY, []); rows.push({ note:note.trim(), createdAt:new Date().toISOString() }); write(CORRECTIONS_KEY, rows);
+      const rows = read(CORRECTIONS_KEY, []); rows.push({ id: 'cor-' + Date.now(), note:note.trim(), status: 'Menunggu', createdAt:new Date().toISOString() }); write(CORRECTIONS_KEY, rows);
       showModal('Koreksi tersimpan', 'Catatan tersimpan di browser ini dan belum dikirim ke pengelola.');
     }));
     document.querySelectorAll('[data-share]').forEach(btn => btn.addEventListener('click', async () => {
