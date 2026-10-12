@@ -31,7 +31,8 @@ Jalankan `Jalankan website.bat`, lalu buka http://localhost:8000.
 - Form usulan tempat, laporan keramaian, dan koreksi informasi mengirim ke Supabase ketika URL dan key sudah diisi.
 - Jika Supabase belum dikonfigurasi, website mempertahankan mode pratinjau lokal menggunakan browser storage.
 - SQL menyiapkan tabel kedai, artikel, foto, ulasan, request, laporan keramaian, koreksi, dan daftar admin beserta aturan aksesnya.
-- Panel admin saat ini masih prototipe lokal. Login admin, pengelolaan data langsung ke Supabase, upload foto ke Storage, dan render kedai/artikel dari tabel database perlu disambungkan setelah project Supabase dan akun admin tersedia.
+- Panel admin memakai Supabase Auth dan membaca antrian request, laporan, koreksi, ulasan, kedai, dan artikel dari database. Admin dapat memperbarui status moderasi serta menyimpan perubahan metadata kedai/artikel.
+- Upload foto ke Supabase Storage belum aktif. Halaman publik Jelajahi dan Artikel masih memakai konten statis; menayangkan data baru dari database ke halaman tersebut adalah tahap integrasi berikutnya.
 - Data keramaian berasal dari laporan sukarela pengunjung. Supabase menyimpan waktu dan pilihan sepi/sedang/ramai; website tidak membaca sinyal HP pengunjung.
 
 ## Catatan data contoh
