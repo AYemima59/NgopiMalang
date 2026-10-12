@@ -14,4 +14,6 @@
 .login-card .primary-button{justify-content:center;padding:12px}
 .login-card>a:last-child{font-size:13px;color:#6d4931;text-align:center;text-decoration:none}
 .login-message{font-size:12px;line-height:1.5;color:#68736c;text-align:center;min-height:18px}
+.login-card[hidden]{display:none!important}
+.login-link-button{border:0;background:none;color:#315f4c;font:inherit;font-size:13px;cursor:pointer}
 
