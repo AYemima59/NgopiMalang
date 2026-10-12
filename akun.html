@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Masuk atau daftar akun pengunjung NgopiMalang."><title>Akun — NgopiMalang</title><link rel="stylesheet" href="./pages.css"></head>
+<body class="ng-page ng-auth-page">
+  <main class="ng-auth-card" id="accountCard">
+    <a class="ng-auth-brand" href="index.html"><span class="ng-brand-icon"><span class="material-symbols-outlined">local_cafe</span></span>NgopiMalang</a>
+    <h1 id="accountTitle">Masuk ke NgopiMalang</h1><p id="accountIntro">Masuk untuk menyimpan tempat favorit dan menulis ulasan.</p>
+    <form class="ng-auth-form" id="accountForm">
+      <label id="nameField" hidden>Nama panggilan<input name="name" autocomplete="nickname" maxlength="80" placeholder="Nama kamu"></label>
+      <label>Email<input name="email" type="email" autocomplete="email" required placeholder="nama@email.com"></label>
+      <label id="passwordField">Password<input name="password" type="password" autocomplete="current-password" minlength="8" required placeholder="Minimal 8 karakter"></label>
+      <div class="ng-auth-actions"><button class="ng-button" id="submitAccount" type="submit">Masuk</button></div>
+      <p class="ng-auth-message" id="accountMessage" role="status" aria-live="polite"></p>
+      <div class="ng-auth-switch"><button type="button" id="switchMode">Belum punya akun? Daftar</button><button type="button" id="forgotPassword">Lupa password?</button></div>
+    </form>
+    <section id="signedInPanel" hidden><p id="signedInEmail"></p><div class="ng-auth-actions"><button class="ng-button secondary" id="signOutAccount" type="button">Keluar</button><a class="ng-button" href="index.html">Kembali ke beranda</a></div></section>
+    <p style="margin:18px 0 0;text-align:center"><a class="ng-inline-link" href="index.html">← Kembali ke website</a></p>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="./supabase-config.js"></script><script src="./supabase-client.js"></script><script src="./account.js"></script>
+</body></html>
