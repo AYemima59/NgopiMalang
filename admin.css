@@ -16,4 +16,4 @@
 .login-message{font-size:12px;line-height:1.5;color:#68736c;text-align:center;min-height:18px}
 .login-card[hidden]{display:none!important}
 .login-link-button{border:0;background:none;color:#315f4c;font:inherit;font-size:13px;cursor:pointer}
-
+.feature-checks{border:1px solid var(--line);border-radius:9px;padding:12px;margin:0 0 13px}.feature-checks legend{font-size:10px;font-weight:700;color:#5c695f;padding:0 4px}.feature-checks>p{margin:0 0 9px}.feature-checks>div{display:grid;grid-template-columns:1fr 1fr;gap:8px}.feature-checks label{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:8px;padding:9px;background:#fbfcfa;cursor:pointer}.feature-checks input{accent-color:var(--green)}.feature-checks label span{font-size:10px;color:#47534b}.photo-card img[hidden]{display:none}
