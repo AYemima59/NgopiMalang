@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>NgopiMalang - Direktori Tempat Ngopi Terbaik di Malang</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<!-- Modern, sleek typography: Plus Jakarta Sans & Space Grotesk / Inter accents -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: #FAFAF9;
+        color: #18181B;
+      }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#FDF8F3',
+              100: '#F7EDE2',
+              500: '#C26D2D',
+              600: '#9A4C15',
+              800: '#5F2D07',
+              900: '#3D1B02'
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-[#FAFAF9] text-[#18181B] antialiased selection:bg-[#EAE0D5] selection:text-[#18181B]">
+<!-- TOP MINIMAL HEADER -->
+<header class="fixed top-0 w-full z-50 bg-[#FAFAF9]/85 backdrop-blur-md border-b border-zinc-200/70">
+<div class="max-w-[1240px] mx-auto px-5 lg:px-8 h-16 flex items-center justify-between gap-4">
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-2.5 group" data-path="beranda" href="#">
+<div class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center text-white shadow-xs">
+<span class="material-symbols-outlined text-[19px]">local_cafe</span>
+</div>
+<span class="text-[17px] font-bold tracking-tight text-zinc-900 font-sans group-hover:text-zinc-700 transition-colors">NgopiMalang</span>
+</a>
+<div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200/60 text-zinc-600 text-xs font-medium">
+<span class="material-symbols-outlined text-[14px] text-zinc-400">location_on</span>
+<span>Kota Malang, Jawa Timur</span>
+</div>
+</div>
+<!-- Navigation pill -->
+<nav class="hidden md:flex items-center gap-1 px-1.5 py-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 text-xs font-medium text-zinc-600">
+<a aria-current="page" class="px-3.5 py-1 rounded-full bg-white text-zinc-950 font-semibold shadow-xs" data-path="beranda" href="#">Beranda</a>
+<a class="px-3.5 py-1 rounded-full hover:text-zinc-950 transition-colors" data-path="jelajahi" href="#">Jelajahi</a>
+<a class="px-3.5 py-1 rounded-full hover:text-zinc-950 transition-colors" data-path="artikel-panduan" href="#">Artikel Panduan</a>
+<a class="px-3.5 py-1 rounded-full hover:text-zinc-950 transition-colors" data-path="favorit" href="#">Favorit</a>
+</nav>
+<!-- Right Actions -->
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex items-center relative">
+<span class="material-symbols-outlined absolute left-3 text-zinc-400 text-[18px]">search</span>
+<input class="w-48 lg:w-56 pl-9 pr-3 py-1.5 bg-white border border-zinc-200/80 rounded-full text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 transition-all shadow-xs" placeholder="Cari kedai, Wi-Fi, area..." type="text"/>
+</div>
+<a class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold rounded-full transition-all shadow-xs" data-path="usulkan-tempat" href="#">
+<span class="material-symbols-outlined text-[15px]">add</span>
+<span>Usulkan Tempat</span>
+</a>
+<div class="flex items-center pl-1">
+<img alt="Profile" class="w-7 h-7 rounded-full object-cover ring-1 ring-zinc-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3JSLZsK2epSEAMIDhuS0xgUQ-p5qY9zcfebP5rU6SRbWj_Uf0BPhoHee80ODrakRWyOY4hSYmNWokdBtPgwp2qW4Th-w6NfCyOd_TfyZuoUyqbpkuclrlvuMlXlUw1RO8Bb731iGkbe0QggrCN67kmELWQJiy6-4_WX22wYNsrFeNZ5aroavJRXRgzx_9t_bQcD5_GS64pGhcvyanqe6kyNdGpd277RiNyR09GmlCO4Niftz4Q5kj"/>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-16">
+<!-- HERO SECTION: Ultra-Clean Minimalist Editorial -->
+<section class="w-full relative border-b border-zinc-200/80 bg-white">
+<div class="max-w-[1240px] mx-auto px-5 lg:px-8 pt-14 pb-16 lg:pt-20 lg:pb-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+<!-- Hero Text & Search Box -->
+<div class="lg:col-span-7 flex flex-col">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 text-[11px] font-semibold uppercase tracking-wider w-fit mb-5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+              Direktori Kurasi Kopi Malang 2025
+            </div>
+<h1 class="text-4xl sm:text-5xl lg:text-[54px] font-bold text-zinc-900 tracking-tight leading-[1.12] mb-4">
+              Temukan Tempat Ngopi Terbaik di Kota Malang.
+            </h1>
+<p class="text-base sm:text-lg text-zinc-600 leading-relaxed max-w-xl mb-8">
+              Dari kedai legendaris di Klojen hingga ruang nugas estetik di Lowokwaru. Temukan tempat ngopi pas sesuai suasana, fasilitas, dan pantauan keramaian terkini.
+            </p>
+<!-- Search Panel Minimal Card -->
+<div class="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col gap-4">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-zinc-400 text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-white border border-zinc-200/90 rounded-xl text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 transition-all shadow-xs" id="hero-search-input" placeholder="Cari nama kedai, jalan (misal: Soekarno-Hatta, Ijen), atau area..." type="text"/>
+</div>
+<!-- Quick Filter Pills -->
+<div class="flex flex-wrap items-center gap-2 text-zinc-600 text-xs">
+<span class="font-medium text-zinc-400 mr-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">tune</span> Cepat:
+                </span>
+<button class="filter-pill px-3 py-1 rounded-full bg-white border border-zinc-200 hover:border-zinc-300 hover:text-zinc-900 font-medium transition-all" onclick="toggleQuickFilter(this, 'nugas')">
+                  Buat Nugas
+                </button>
+<button class="filter-pill px-3 py-1 rounded-full bg-white border border-zinc-200 hover:border-zinc-300 hover:text-zinc-900 font-medium transition-all" onclick="toggleQuickFilter(this, '24jam')">
+                  Buka Sampai Malam
+                </button>
+<button class="filter-pill px-3 py-1 rounded-full bg-white border border-zinc-200 hover:border-zinc-300 hover:text-zinc-900 font-medium transition-all" onclick="toggleQuickFilter(this, 'outdoor')">
+                  Outdoor Segar
+                </button>
+<button class="filter-pill px-3 py-1 rounded-full bg-white border border-zinc-200 hover:border-zinc-300 hover:text-zinc-900 font-medium transition-all" onclick="toggleQuickFilter(this, 'hemat')">
+                  Murah &amp; Hemat (&lt;20rb)
+                </button>
+</div>
+<!-- CTA Row -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 border-t border-zinc-200/60">
+<button class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold rounded-xl shadow-xs transition-all active:scale-[0.99]" onclick="triggerSearch()">
+<span class="material-symbols-outlined text-[18px]">local_cafe</span>
+<span>Cari Coffee Shop</span>
+</button>
+<a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-zinc-200 hover:bg-zinc-100/70 text-zinc-800 text-xs font-semibold rounded-xl transition-all" href="#peta-mini">
+<span class="material-symbols-outlined text-[18px] text-zinc-500">explore</span>
+<span>Buka Peta Malang</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Hero Right: Refined Clean Card Mosaic -->
+<div class="lg:col-span-5 relative">
+<div class="relative mx-auto max-w-[440px] aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 shadow-md bg-zinc-100 group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Interior of an artisanal heritage coffee shop in Malang East Java, warm soft morning sunlight streaming through Dutch colonial arch windows, barista preparing pour over coffee on solid teak wood counter, guests sitting on vintage wicker chairs with laptops and ceramics mugs, warm latte foam tones and terracotta brick accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpir88u2duGifuXYuBtub8y1QsGtT1wVUsolVB-26No438Wn98xgits8QISqH163zmJq-RKGlsM8EyIITtcDWJLFvdivc7so-_hoOX4KntKnmlZs4WR4VnfTWM1f6E4yseVLut9aocbbLpqDRyzsIPlOeEAGhdN-iEIquPpkg--LEAsdw1HqpR2uIluBz6r_ju6loV2jqdVZmzf4zeD8HpiL0KkB5gvOiNni0fLf-pQggwZVeQpb-B"/>
+<div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent"></div>
+<!-- Top Live Chip -->
+<div class="absolute top-4 left-4 px-3 py-1.5 bg-white/95 backdrop-blur-md border border-zinc-200/80 rounded-xl shadow-xs flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+<div class="flex flex-col">
+<span class="text-[11px] font-bold text-zinc-900 leading-tight">Pantauan Langsung</span>
+<span class="text-[10px] text-zinc-500">64 laporan aktif hari ini</span>
+</div>
+</div>
+<!-- Bottom Floating Information Card -->
+<div class="absolute bottom-4 left-4 right-4 p-4 bg-white/95 backdrop-blur-md rounded-xl border border-zinc-200/80 shadow-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[10px] font-bold text-amber-700 tracking-wider uppercase">Spot Terpilih Pekan Ini</span>
+<h3 class="text-sm font-bold text-zinc-900 mt-0.5">Ruang Teduh Klojen</h3>
+<p class="text-xs text-zinc-500 mt-0.5">Jl. Basuki Rahmat • 80 Mbps Wi-Fi</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-[11px] font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Sepi (Tenang)
+                    </span>
+<span class="text-[10px] text-zinc-400 mt-1">Update 12 mnt lalu</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Metric Bar: Minimalist 4-Column Grid -->
+<div class="mt-14 pt-8 border-t border-zinc-100 grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="flex items-center gap-3.5 p-3 rounded-xl bg-zinc-50 border border-zinc-200/60">
+<div class="w-10 h-10 rounded-lg bg-white border border-zinc-200/80 flex items-center justify-center text-zinc-700 shadow-xs">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</div>
+<div>
+<div class="text-lg font-bold text-zinc-900 leading-tight">180+</div>
+<div class="text-xs text-zinc-500">Kedai Terkurasi</div>
+</div>
+</div>
+<div class="flex items-center gap-3.5 p-3 rounded-xl bg-zinc-50 border border-zinc-200/60">
+<div class="w-10 h-10 rounded-lg bg-white border border-zinc-200/80 flex items-center justify-center text-zinc-700 shadow-xs">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</div>
+<div>
+<div class="text-lg font-bold text-zinc-900 leading-tight">5</div>
+<div class="text-xs text-zinc-500">Kecamatan di Malang</div>
+</div>
+</div>
+<div class="flex items-center gap-3.5 p-3 rounded-xl bg-zinc-50 border border-zinc-200/60">
+<div class="w-10 h-10 rounded-lg bg-white border border-zinc-200/80 flex items-center justify-center text-zinc-700 shadow-xs">
+<span class="material-symbols-outlined text-[20px]">group</span>
+</div>
+<div>
+<div class="text-lg font-bold text-zinc-900 leading-tight">Komunitas</div>
+<div class="text-xs text-zinc-500">Pembaruan Keramaian</div>
+</div>
+</div>
+<div class="flex items-center gap-3.5 p-3 rounded-xl bg-zinc-50 border border-zinc-200/60">
+<div class="w-10 h-10 rounded-lg bg-white border border-zinc-200/80 flex items-center justify-center text-zinc-700 shadow-xs">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<div>
+<div class="text-lg font-bold text-zinc-900 leading-tight">100%</div>
+<div class="text-xs text-zinc-500">Panduan Independen</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- KATEGORI REKOMENDASI UNGGULAN -->
+<section class="w-full max-w-[1240px] mx-auto px-5 lg:px-8 py-16">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<span class="text-xs font-bold text-amber-700 uppercase tracking-widest">Kategori Pilihan</span>
+<h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 tracking-tight mt-1">Cari Berdasarkan Kebutuhan Ngopi</h2>
+</div>
+<p class="text-sm text-zinc-500 max-w-md">
+          Setiap peminum kopi di Malang punya tujuan berbeda. Temukan atmosfer yang selaras dengan ritme harimu.
+        </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- 1: Buat Nugas -->
+<a class="group p-4 bg-white border border-zinc-200/80 rounded-2xl hover:border-zinc-300 hover:shadow-sm transition-all flex items-center gap-4" href="#">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-100 border border-zinc-200/60">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cozy wooden workspace cafe interior in Malang with a student typing on a laptop, notebooks, high-speed Wi-Fi router symbol nearby, clean desk and cold brew coffee glass, warm natural side lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1uuSLn3-YqpGVMYvrGywqjvmGvDZdvJG1uOCmWGRyD9q4z2LU2BxB-awBQLZixPqHx85HnUlK6RiMo9Eldzbpd2yAbh4dTZUG0EImP_gJj-wiAb1YwcOwKhQvJ7IZFCJ7AHz1wa_POyIgeAbRIyzg_nPUramYXVO7bhjgtn9pjlhplznRPMUMg6hKJ80mnMWlIf-qz0qYJxUgDU3MfB5_Weu-gF6l7al1LDQVHjfZB6cpOIq8HKdV"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wide">Produktivitas</span>
+<h3 class="text-sm font-bold text-zinc-900 truncate group-hover:text-amber-800 transition-colors">Buat Nugas</h3>
+<p class="text-xs text-zinc-500 truncate mt-0.5">Colokan banyak &amp; Wi-Fi kencang terjamin</p>
+<span class="text-[11px] font-medium text-zinc-400 mt-1">42 Lokasi</span>
+</div>
+</a>
+<!-- 2: Buka Sampai Malam -->
+<a class="group p-4 bg-white border border-zinc-200/80 rounded-2xl hover:border-zinc-300 hover:shadow-sm transition-all flex items-center gap-4" href="#">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-100 border border-zinc-200/60">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Atmospheric midnight coffee bar in Malang with amber incandescent pendant lamps, warm moody shadows, steam rising from espresso machine, nocturnal quiet ambience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEe_SCdVsbBG3RsPw3o77lGaXI8EHZjDjW_EoTsr-tVnuzzB_JluiojpkmWqrhXx1gea9hBI1dfYooK1aQSlN5pTaE_tOQ_CCu5mSbproQRWJz2gxPD_JdzkAca5MfFr_22FK6U81atTux4u6KgnsZyu7LyMUZx8uIoAXQO2c9OTMIv4GoWbkr1ytUzmsJSKWHD3DcdMXZXgzdOxWAX34NQByr1AsjGEPLjekCwBErhoPLnonElpI-"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wide">Kalong Friendly</span>
+<h3 class="text-sm font-bold text-zinc-900 truncate group-hover:text-amber-800 transition-colors">Buka Sampai Malam</h3>
+<p class="text-xs text-zinc-500 truncate mt-0.5">Pilihan kedai 24 jam dan lewat tengah malam</p>
+<span class="text-[11px] font-medium text-zinc-400 mt-1">28 Lokasi</span>
+</div>
+</a>
+<!-- 3: Harga Mahasiswa -->
+<a class="group p-4 bg-white border border-zinc-200/80 rounded-2xl hover:border-zinc-300 hover:shadow-sm transition-all flex items-center gap-4" href="#">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-100 border border-zinc-200/60">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Budget friendly campus coffee counter with glasses of es kopi susu, fried snacks pisang goreng on banana leaf, rustic minimalist Malang student hangout setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH2cNE_J1XZU749FL0nhKxeEtrSxRlYYjpLJVDLzy9ikBnv5kR48MgIa9t4dSZ51Wznn28BvRqP0eHsJGc6kr0E8POouWwAHUFJ_W0wKONVZakYfAanIQJnpY_noSHI310_XZnJSn5RiH85DrNWD774jqIRIAD_howl0TeVvNi-jeFBO7cLrO3fv8huYZM48cZBEe6lTnKcCYvfs6Tn9aP9jnZJzY6tgwDPwBxc9JVhsiZqlFGncCK"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wide">Ramah Kantong</span>
+<h3 class="text-sm font-bold text-zinc-900 truncate group-hover:text-amber-800 transition-colors">Harga Mahasiswa</h3>
+<p class="text-xs text-zinc-500 truncate mt-0.5">Kopi enak &amp; camilan di bawah Rp 20.000</p>
+<span class="text-[11px] font-medium text-zinc-400 mt-1">56 Lokasi</span>
+</div>
+</a>
+<!-- 4: Outdoor Segar -->
+<a class="group p-4 bg-white border border-zinc-200/80 rounded-2xl hover:border-zinc-300 hover:shadow-sm transition-all flex items-center gap-4" href="#">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-100 border border-zinc-200/60">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Lush tropical garden coffee shop patio in Malang hillside with shady trembesi trees, wooden benches on pea gravel ground, cool misty afternoon mountain breeze vibes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi_UiGCdVYbBWi2sJ49CamTaljd89qCsCxtCCz-1f-rbJGecU_kd7-VOTy-x51dOp68WbaF-gHPpwo8QS-OsN-XGjqA_p1jGRRUFEn7qSm57M_IBT3nItsPYv70aC8lx02dieIBkPxsP-NlV8ysjQMpjUjrVu3SSGWGecFRlaqlRJRGhZKqeWo-iokH8StYn5sBvAh6GPIl2NDqoMYSih3PmOf-O8S7yPFrD7aE5VfUqDm2W2WJEzS"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wide">Sejuk &amp; Alami</span>
+<h3 class="text-sm font-bold text-zinc-900 truncate group-hover:text-amber-800 transition-colors">Outdoor Segar</h3>
+<p class="text-xs text-zinc-500 truncate mt-0.5">Pekarangan rindang hawa dingin khas Malang</p>
+<span class="text-[11px] font-medium text-zinc-400 mt-1">34 Lokasi</span>
+</div>
+</a>
+<!-- 5: Diskusi & Ngobrol -->
+<a class="group p-4 bg-white border border-zinc-200/80 rounded-2xl hover:border-zinc-300 hover:shadow-sm transition-all flex items-center gap-4" href="#">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-100 border border-zinc-200/60">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Warm intimate coffee conversation area with deep armchairs, low wooden coffee tables, soft background acoustic jazz vibe in a serene modern cafe in Malang." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_C5qToYvjuF3x0rwZ4wh0VNPs6JV1wLQfDrWhREGH_XPDh9PcjdBK56Ua5DyNT4xt_yRcBsNvS5QZ-k3lDIDw0Crai1BdvHWzOgAAFIHqkoBwrM_qPxkiuCPkUYzY-6F0brJYOaPXKWLX3JBnPStHRjTcE31U2lO8BD6LVqwdLuuqp7OoQxMJ2M7fWNryVWE23fLypl4thVQtkyHE9aobGCafmH47C0yEXAYv-IHybgldCT3D6w-7"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wide">Ruang Bicara</span>
+<h3 class="text-sm font-bold text-zinc-900 truncate group-hover:text-amber-800 transition-colors">Diskusi &amp; Ngobrol</h3>
+<p class="text-xs text-zinc-500 truncate mt-0.5">Akustik nyaman tanpa musik yang terlalu bising</p>
+<span class="text-[11px] font-medium text-zinc-400 mt-1">39 Lokasi</span>
+</div>
+</a>
+<!-- 6: Vibes Heritage -->
+<a class="group p-4 bg-white border border-zinc-200/80 rounded-2xl hover:border-zinc-300 hover:shadow-sm transition-all flex items-center gap-4" href="#">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-100 border border-zinc-200/60">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Classic Dutch colonial heritage coffee house in Kayutangan Malang, monochrome encaustic cement floor tiles, antique wooden clocks, sepia photographs, art deco aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcYCbgdc04n54iyMF5Wu2si6qRdCQrIGme7ENwRczkpKZkQ_iC8oGyj2hrbnYT3oCy-3CGLepkl7k-LKs5d8mqs_YhkNcZlTZrJ0cuchH8d8se5D18pDyf1B2EL5cc2fKhy-TivgNZyr8FUaRG_ZA-0UW1tgugl_0s3I6BCso7Lm7i4fstqd4tY7l56WTl5HLy4zPQWyVfoSzPJhktphGcm02OmxlGcWAFYwhOs8rK18y17J115SAT"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wide">Tempo Doeloe</span>
+<h3 class="text-sm font-bold text-zinc-900 truncate group-hover:text-amber-800 transition-colors">Vibes Heritage</h3>
+<p class="text-xs text-zinc-500 truncate mt-0.5">Nostalgia Kayutangan &amp; gaya kolonial otentik</p>
+<span class="text-[11px] font-medium text-zinc-400 mt-1">19 Lokasi</span>
+</div>
+</a>
+</div>
+</section>
+<!-- KURASI PILIHAN EDITOR: PALING POPULER MINGGU INI -->
+<section class="w-full bg-white border-y border-zinc-200/80 py-16">
+<div class="max-w-[1240px] mx-auto px-5 lg:px-8">
+<!-- Header & Filter segment -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-1.5 text-xs font-bold text-amber-700 uppercase tracking-wider mb-1">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+<span>Kurasi Editor Minggu Ini</span>
+</div>
+<h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 tracking-tight">Paling Ramai Dibicarakan &amp; Dikunjungi</h2>
+</div>
+<!-- Segments -->
+<div class="flex items-center gap-1 p-1 bg-zinc-100 rounded-xl border border-zinc-200/80">
+<button class="px-3 py-1 rounded-lg bg-white text-zinc-950 font-semibold text-xs shadow-xs">Semua Area</button>
+<button class="px-3 py-1 rounded-lg text-zinc-600 hover:text-zinc-900 text-xs font-medium transition-colors">Klojen</button>
+<button class="px-3 py-1 rounded-lg text-zinc-600 hover:text-zinc-900 text-xs font-medium transition-colors">Lowokwaru</button>
+<button class="px-3 py-1 rounded-lg text-zinc-600 hover:text-zinc-900 text-xs font-medium transition-colors">Sukun</button>
+</div>
+</div>
+<!-- 4 Detailed Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+<!-- Card 1 -->
+<article class="flex flex-col bg-[#FAFAF9] border border-zinc-200/90 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-md transition-all group">
+<div class="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Colonial style cafe in Klojen Malang with teak furniture, warm chandeliers, barista pouring manual brew V60 in glass server, antique tiled floors, cozy heritage ambiance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeQsgAiVBsQRzawGcOLC_roYgYItRhlFa4MMsVTnAauml9XQm-QPKATFDXDIJqAcTMmDBdkHbAC19KDuI54GCVTbizxmGsCkC0ofd_XKqfDXHYRWEP_5W_YU807E2vr7o5UxoZOiYLm1-QgOhE1_6bgiUHU-QD2SmC-FvzInj7w65D8JZorxmSjeub5KYtb36SPmmV9se1G3FONsHCo5a8lX0GgysRtgnZDpbPwH8u47w9dzsmf8Qk"/>
+<button aria-label="Simpan Favorit" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm border border-zinc-200/60 flex items-center justify-center text-zinc-700 hover:text-rose-600 shadow-xs transition-colors" onclick="toggleBookmark(this)">
+<span class="material-symbols-outlined text-[16px]">favorite_border</span>
+</button>
+<span class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-full bg-zinc-900/80 backdrop-blur-sm text-white text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">near_me</span> 1.2 km
+              </span>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-3 bg-white">
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-medium text-zinc-500">Klojen, Malang Pusat</span>
+<div class="flex items-center gap-1 text-zinc-900 font-semibold text-xs">
+<span class="material-symbols-outlined text-[14px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.8</span>
+</div>
+</div>
+<h3 class="text-sm font-bold text-zinc-900 line-clamp-1 group-hover:text-amber-800 transition-colors">
+                  Kedai Kopi Oen &amp; Heritage Roastery
+                </h3>
+<p class="text-xs text-zinc-500 mt-0.5">
+                  Rp 25.000 – Rp 45.000 / orang
+                </p>
+<div class="flex flex-wrap gap-1.5 mt-2.5">
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">wifi</span> Wi-Fi Cepat
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">power</span> Stopkontak
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium">Vintage</span>
+</div>
+</div>
+<div class="pt-2 border-t border-zinc-100">
+<div class="px-2.5 py-1.5 rounded-lg bg-amber-50/80 border border-amber-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+<span class="text-amber-800 font-semibold text-[11px]">Sedang</span>
+</div>
+<span class="text-amber-700/80 text-[10px]">4 lap • 1 jam lalu</span>
+</div>
+<a class="mt-2 w-full py-1.5 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-lg flex items-center justify-center gap-1 transition-colors" href="#">
+<span>Detail &amp; Menu</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="flex flex-col bg-[#FAFAF9] border border-zinc-200/90 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-md transition-all group">
+<div class="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern spacious student co-working cafe Bataputih in Lowokwaru Malang, white exposed bricks, large communal oak tables, young people studying with iced coffees, air-conditioned well-lit room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCph8zz4WgDeSrsBZpvk42KfHV4axP8jQ2ZLfK7QnPBn9uJ4VCQ5i3_242TobPavbMV1atDvxdJqU70-qw8Ba0eAbJJmMeyrXHiMh3GNaZ5WYTOZouxPUpWXWcf6-zQnRwvGHOhaPLZ0-ztJd_9brXebk6SmEqkQXZYwJS9xYrdvz83rai8OosMYDIfzEpZxsfn-f8O44RfhZyEpLDTTqZNXcrS_n8eKX2k3_2gudWY8dfjwCTUWlCg"/>
+<button aria-label="Simpan Favorit" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm border border-zinc-200/60 flex items-center justify-center text-zinc-700 hover:text-rose-600 shadow-xs transition-colors" onclick="toggleBookmark(this)">
+<span class="material-symbols-outlined text-[16px]">favorite_border</span>
+</button>
+<span class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-full bg-zinc-900/80 backdrop-blur-sm text-white text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">near_me</span> 3.4 km
+              </span>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-3 bg-white">
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-medium text-zinc-500">Lowokwaru (Kampus Hub)</span>
+<div class="flex items-center gap-1 text-zinc-900 font-semibold text-xs">
+<span class="material-symbols-outlined text-[14px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.9</span>
+</div>
+</div>
+<h3 class="text-sm font-bold text-zinc-900 line-clamp-1 group-hover:text-amber-800 transition-colors">
+                  Bataputih Coffee &amp; Space
+                </h3>
+<p class="text-xs text-zinc-500 mt-0.5">
+                  Rp 20.000 – Rp 35.000 / orang
+                </p>
+<div class="flex flex-wrap gap-1.5 mt-2.5">
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">edit_note</span> Buat Nugas
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">ac_unit</span> AC Dingin
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium">Parkir Luas</span>
+</div>
+</div>
+<div class="pt-2 border-t border-zinc-100">
+<div class="px-2.5 py-1.5 rounded-lg bg-rose-50/80 border border-rose-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+<span class="text-rose-800 font-semibold text-[11px]">Ramai</span>
+</div>
+<span class="text-rose-700/80 text-[10px]">8 lap • 2 jam lalu</span>
+</div>
+<a class="mt-2 w-full py-1.5 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-lg flex items-center justify-center gap-1 transition-colors" href="#">
+<span>Detail &amp; Menu</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="flex flex-col bg-[#FAFAF9] border border-zinc-200/90 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-md transition-all group">
+<div class="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Scenic outdoor terrace cafe on Malang hillside, panoramic views of Mount Panderman and tea plantations, pine trees, rustic wooden tables, mild afternoon haze." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_PCuHMVy0zlKJGtSpsC3reTyPWCD6L9ckzTY7dn0lnQIUip3Pi5CB1m18NTPTLbI06U2_lA9cdQuNUHapPhXnimexUfKqebOk-OMr8ud9FEwsltb_Hc7JdXtR9Fl_O26PCLXBUIXY5OLDMxijngbO1GY5W3X4gb7zuLe_6omAxs4Q6m3_z7dH1jaa9v88Eu-99KgUfUUcyo5Dzfqo0IPQ_IKNYcCVknBI1cAA4t2YRidBoF070lM-"/>
+<button aria-label="Simpan Favorit" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm border border-zinc-200/60 flex items-center justify-center text-zinc-700 hover:text-rose-600 shadow-xs transition-colors" onclick="toggleBookmark(this)">
+<span class="material-symbols-outlined text-[16px]">favorite_border</span>
+</button>
+<span class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-full bg-zinc-900/80 backdrop-blur-sm text-white text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">near_me</span> 6.8 km
+              </span>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-3 bg-white">
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-medium text-zinc-500">Dau, Kab. Malang (di luar Kota Malang)</span>
+<div class="flex items-center gap-1 text-zinc-900 font-semibold text-xs">
+<span class="material-symbols-outlined text-[14px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.7</span>
+</div>
+</div>
+<h3 class="text-sm font-bold text-zinc-900 line-clamp-1 group-hover:text-amber-800 transition-colors">
+                  Sehidup Sekebun Coffee
+                </h3>
+<p class="text-xs text-zinc-500 mt-0.5">
+                  Rp 18.000 – Rp 30.000 / orang
+                </p>
+<div class="flex flex-wrap gap-1.5 mt-2.5">
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">forest</span> Outdoor Hijau
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">landscape</span> View Gunung
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium">Pet Friendly</span>
+</div>
+</div>
+<div class="pt-2 border-t border-zinc-100">
+<div class="px-2.5 py-1.5 rounded-lg bg-emerald-50/80 border border-emerald-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+<span class="text-emerald-800 font-semibold text-[11px]">Sepi (Tenang)</span>
+</div>
+<span class="text-emerald-700/80 text-[10px]">Update 35 mnt lalu</span>
+</div>
+<a class="mt-2 w-full py-1.5 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-lg flex items-center justify-center gap-1 transition-colors" href="#">
+<span>Detail &amp; Menu</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="flex flex-col bg-[#FAFAF9] border border-zinc-200/90 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-md transition-all group">
+<div class="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional nostalgic Chinese-Indonesian kopitiam near Kotabaru train station Malang, toast bread on grill, classic enamel cups with robusta milk coffee, morning bustling street." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrwTxiv-6uJfMHwa5LP9ydi8F6eldlMqrf7QwNyksal17g7NbZE4pvMCgm5s4cBI9qYfz2lAqfXSSU7036RUlrXMZjrCf6anZc_2KfcPJ3h1YdqDV-2eBezUwlJ7SDmUY1KFc4Wqpdgit2NbOaDdcA_mvTPO9D9YNyYDCK_f_Vok4AMHMFtsike5hIQvPWTElnmquaRrxeRNL7Gg2Qtjve52qAwUxAzAug1TjZemxyQSRye0MoXeax"/>
+<button aria-label="Simpan Favorit" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm border border-zinc-200/60 flex items-center justify-center text-zinc-700 hover:text-rose-600 shadow-xs transition-colors" onclick="toggleBookmark(this)">
+<span class="material-symbols-outlined text-[16px]">favorite_border</span>
+</button>
+<span class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-full bg-zinc-900/80 backdrop-blur-sm text-white text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">near_me</span> 0.6 km
+              </span>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-3 bg-white">
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-medium text-zinc-500">Dekat Stasiun Kotabaru</span>
+<div class="flex items-center gap-1 text-zinc-900 font-semibold text-xs">
+<span class="material-symbols-outlined text-[14px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.8</span>
+</div>
+</div>
+<h3 class="text-sm font-bold text-zinc-900 line-clamp-1 group-hover:text-amber-800 transition-colors">
+                  Toko Kopi Kongca
+                </h3>
+<p class="text-xs text-zinc-500 mt-0.5">
+                  Rp 12.000 – Rp 25.000 / orang
+                </p>
+<div class="flex flex-wrap gap-1.5 mt-2.5">
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">wb_twilight</span> Buka Pagi
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">breakfast_dining</span> Butter Toast
+                  </span>
+<span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium">Murah</span>
+</div>
+</div>
+<div class="pt-2 border-t border-zinc-100">
+<div class="px-2.5 py-1.5 rounded-lg bg-amber-50/80 border border-amber-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+<span class="text-amber-800 font-semibold text-[11px]">Sedang</span>
+</div>
+<span class="text-amber-700/80 text-[10px]">Update 15 mnt lalu</span>
+</div>
+<a class="mt-2 w-full py-1.5 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-lg flex items-center justify-center gap-1 transition-colors" href="#">
+<span>Detail &amp; Menu</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- PETA CUPLIKAN INTERAKTIF MINI: Clean Minimal Split -->
+<section class="w-full max-w-[1240px] mx-auto px-5 lg:px-8 py-16" id="peta-mini">
+<div class="bg-white border border-zinc-200/90 rounded-3xl p-6 lg:p-8 shadow-xs">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+<!-- District Text & Legend Side -->
+<div class="lg:col-span-5 flex flex-col">
+<span class="text-xs font-bold text-amber-700 uppercase tracking-widest mb-1">Distribusi Geografis</span>
+<h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 tracking-tight mb-3">
+              Jelajahi Sebaran Kedai di Kota Malang & Sekitarnya
+            </h2>
+<p class="text-sm text-zinc-500 leading-relaxed mb-6">
+              Pilih area terdekat dari posisimu saat ini. Setiap wilayah menawarkan atmosfer seduhan yang khas: dari koridor bersejarah hingga sejuknya pinggiran kota.
+            </p>
+<div class="flex flex-col gap-2 mb-6">
+<div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+<span class="font-semibold text-zinc-800">Klojen &amp; Kayutangan Heritage</span>
+</div>
+<span class="text-zinc-500 font-medium">48 Kedai</span>
+</div>
+<div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+<span class="font-semibold text-zinc-800">Lowokwaru &amp; Kampus Suhat</span>
+</div>
+<span class="text-zinc-500 font-medium">65 Kedai</span>
+</div>
+<div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+<span class="font-semibold text-zinc-800">Sukun &amp; Roastery Independen</span>
+</div>
+<span class="text-zinc-500 font-medium">29 Kedai</span>
+</div>
+<div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
+<span class="font-semibold text-zinc-800">Blimbing &amp; Jalur Araya</span>
+</div>
+<span class="text-zinc-500 font-medium">24 Kedai</span>
+</div>
+</div>
+<a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold rounded-xl transition-colors w-full sm:w-fit" href="#">
+<span>Jelajahi Semua di Peta Interaktif</span>
+<span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+</a>
+</div>
+<!-- Minimal Map View -->
+<div class="lg:col-span-7">
+<div class="relative w-full h-[360px] lg:h-[420px] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-100 shadow-inner">
+<div class="w-full h-full bg-cover bg-center rounded-2xl" data-location="Kota Malang, Jawa Timur, Indonesia" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmQ_bgiWbH349VnRS_nBi_4OX0BbtvJPVBDSnQyFGFFhZh9-UOUHrxZuKifjT-atXGqpBVKHu-6PL-ZxoI5ksqHlY6uIOCldYIQLekD8oAx0dk3RplSvifo4XioZK5PWdQt3tqf9anmPoBi18S5sTqqMNS3QAt1SnF_P59npBlAbdtBX5FgRzklr9HEEprjN66kdZGICV0vHXTwzbyWefqvUO463tN_ajfXBe_UxEGcbr2mP5NcqeD')"></div>
+<!-- Subtle Modern Map Pins -->
+<div class="absolute top-[28%] left-[45%] w-8 h-8 rounded-full bg-zinc-900 text-white border-2 border-white shadow-md flex items-center justify-center animate-bounce">
+<span class="material-symbols-outlined text-[15px]">local_cafe</span>
+</div>
+<div class="absolute top-[48%] left-[38%] w-8 h-8 rounded-full bg-emerald-700 text-white border-2 border-white shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]">laptop_mac</span>
+</div>
+<div class="absolute top-[35%] left-[62%] w-8 h-8 rounded-full bg-amber-700 text-white border-2 border-white shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]">park</span>
+</div>
+<!-- Map Overlay Card -->
+<div class="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs p-3 bg-white/95 backdrop-blur-md rounded-xl border border-zinc-200/90 shadow-sm flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-zinc-100 flex items-center justify-center text-zinc-700 shrink-0">
+<span class="material-symbols-outlined text-[18px]">pin_drop</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-bold text-zinc-900 truncate">Pin Terpilih: Klojen Heritage</span>
+<span class="text-[11px] text-zinc-500">23 kedai kopi dengan status Sedang &amp; Sepi</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ARTIKEL REKOMENDASI TERBARU: Clean Editorial Grid -->
+<section class="w-full max-w-[1240px] mx-auto px-5 lg:px-8 py-16 border-t border-zinc-200/80">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<span class="text-xs font-bold text-amber-700 uppercase tracking-widest">Catatan &amp; Panduan Kurator</span>
+<h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 tracking-tight mt-1">Artikel &amp; Panduan Ngopi</h2>
+</div>
+<a class="inline-flex items-center gap-1 text-xs font-semibold text-zinc-700 hover:text-zinc-950 transition-colors" href="#">
+<span>Lihat Seluruh Panduan</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Artikel 1 -->
+<article class="flex flex-col bg-white border border-zinc-200/80 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-md transition-all group">
+<div class="aspect-[16/10] overflow-hidden bg-zinc-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern high speed student study cafe near Universitas Brawijaya Malang, students with laptops, iced matcha and cappuccino on table, comfortable ergonomics chairs." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBybzirOcfkypH28JF9Y13dQOdsxVxX6u64AMSYAdw0zGQx8pTVbW9PIsNQKz_JbNFTugEsIMAhW6OrftSI7N_aOocHtglyYp9t5wZGQxp_9gVcPDREVJeDpXQc_HlcKc6jSN_eLC4sAiRMYj_RzKLF9RPYvH5sl1r5hdFBy27iBw5mB9xOqzJz6QU0fEcFVAuIr4K4TsW67DIvqcigghGcN3kODBDibkscI9SAlxx1xWactB1oXiQg"/>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-[11px] text-zinc-400 mb-2 font-medium">
+<span class="text-amber-800 font-semibold">Panduan Kampus</span>
+<span>•</span>
+<span>5 mnt baca</span>
+</div>
+<h3 class="text-base font-bold text-zinc-900 group-hover:text-amber-800 transition-colors leading-snug">
+                7 Coffee Shop Ramah Nugas di Sekitar Kampus UB &amp; UM dengan Wi-Fi Ngebut
+              </h3>
+<p class="text-xs text-zinc-500 mt-2 line-clamp-2 leading-relaxed">
+                Uji kecepatan koneksi riil, ketersediaan colokan per meja, dan daftar kedai yang tidak memutar musik berisik untuk fokus skripsian.
+              </p>
+</div>
+<span class="text-xs font-semibold text-zinc-900 flex items-center gap-1 group-hover:gap-1.5 transition-all">
+              Baca Rekomendasi <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</article>
+<!-- Artikel 2 -->
+<article class="flex flex-col bg-white border border-zinc-200/80 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-md transition-all group">
+<div class="aspect-[16/10] overflow-hidden bg-zinc-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Quiet verdant garden coffee house hidden in Dau Malang, lush greenery, fern plants, wooden garden bench under soft morning mountain fog, refreshing cool atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKFEi__J4nzJkdi8z3Gr87qN0SBRT3jJtqgmKq375bqFiiEtFSiw9QlNZ5c1ytovP9okjQj1d-pun4TM1aw_IonD1DbEoJmlKCO8rDhmBxPf-hmwdjOM3TXlGI1CsAsieNk2mPOggW6QNa1JdyJkVxse0BaCz6TiHloO-41JiP3k51GOLXAiH_dAlaYiqyzaxu98PVP3b6xv1PsmApzw5BtP4WlDOr6ITvZGYAW84EuMPCw5vKn_Ov"/>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-[11px] text-zinc-400 mb-2 font-medium">
+<span class="text-amber-800 font-semibold">Healing &amp; Alam</span>
+<span>•</span>
+<span>4 mnt baca</span>
+</div>
+<h3 class="text-base font-bold text-zinc-900 group-hover:text-amber-800 transition-colors leading-snug">
+                Menikmati Hawa Sejuk Malang: 5 Kedai Kopi Bernuansa Kebun Rindang
+              </h3>
+<p class="text-xs text-zinc-500 mt-2 line-clamp-2 leading-relaxed">
+                Rekomendasi spot bernapas lega jauh dari bising klakson jalan raya kota, cocok untuk kontemplasi sambil menyeruput seduhan manual.
+              </p>
+</div>
+<span class="text-xs font-semibold text-zinc-900 flex items-center gap-1 group-hover:gap-1.5 transition-all">
+              Baca Rekomendasi <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</article>
+<!-- Artikel 3 -->
+<article class="flex flex-col bg-white border border-zinc-200/80 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-md transition-all group">
+<div class="aspect-[16/10] overflow-hidden bg-zinc-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Late night coffee stall in Malang at 2 AM, warm hanging bulbs, young creators brainstorming around an old wooden table, quiet cool street outside, robusta tubruk glass." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYOo_aDBU8PdXompOT2epEptXJlD_rSAWiVqUytR3onGG7fOPP74KZLJ4jd8SKGIh54QTdNuz5kMiW1sgpajpxugm3NmO0-i_lgWmOSBHZ6BrzJVkb4WVymh43UcYzWF7cr8Vb1wRQZijBZGAcguu4ecfkdZzAc0S0RAQuUcD7Q2wHWwvWUaaMHBpY3itILQtRV8eqftLx5bcNmhf64_GwlO-xTR8L_WjYD109srO77pECUw79kf72"/>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-[11px] text-zinc-400 mb-2 font-medium">
+<span class="text-amber-800 font-semibold">Nokturnal Guide</span>
+<span>•</span>
+<span>6 mnt baca</span>
+</div>
+<h3 class="text-base font-bold text-zinc-900 group-hover:text-amber-800 transition-colors leading-snug">
+                Panduan Ngopi Subuh &amp; 24 Jam Buat Kamu yang Suka Kalong di Malang
+              </h3>
+<p class="text-xs text-zinc-500 mt-2 line-clamp-2 leading-relaxed">
+                Tetap aman dan nyaman saat butuh dorongan kafein pukul 2 pagi. Daftar lengkap lokasi yang menyediakan makanan hangat dan colokan hidup.
+              </p>
+</div>
+<span class="text-xs font-semibold text-zinc-900 flex items-center gap-1 group-hover:gap-1.5 transition-all">
+              Baca Rekomendasi <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</article>
+</div>
+</section>
+<!-- BANNER KOMUNITAS: Sleek Dark Container -->
+<section class="w-full max-w-[1240px] mx-auto px-5 lg:px-8 my-16">
+<div class="bg-zinc-900 text-white rounded-3xl p-8 lg:p-12 relative overflow-hidden shadow-xl border border-zinc-800">
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+<div class="lg:col-span-8 flex flex-col gap-3">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 border border-zinc-700/80 w-fit text-zinc-300 text-[11px] font-semibold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[15px] text-amber-400">diversity_3</span>
+<span>Inisiatif Gotong Royong Komunitas</span>
+</div>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
+              Bantu Teman Ngopimu Mengetahui Situasi Kedai.
+            </h2>
+<p class="text-sm text-zinc-400 max-w-2xl leading-relaxed">
+              NgopiMalang hidup dari laporan jujur para pengunjung. Bagikan apakah kedai sedang penuh sesak, masih ada colokan kosong, atau tenang untuk berkonsentrasi. Cukup satu ketukan saat kamu berada di lokasi.
+            </p>
+<div class="flex flex-wrap items-center gap-3 pt-3">
+<button class="px-5 py-2.5 bg-white text-zinc-950 font-semibold text-xs rounded-xl shadow-xs hover:bg-zinc-100 transition-all active:scale-[0.99] flex items-center gap-2" onclick="openReportModal()">
+<span class="material-symbols-outlined text-[17px]">add_location_alt</span>
+<span>Lapor Situasi Kedai Sekarang</span>
+</button>
+<a class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700/80 text-zinc-200 font-semibold text-xs rounded-xl transition-colors flex items-center gap-2 border border-zinc-700" href="#">
+<span class="material-symbols-outlined text-[17px]">store</span>
+<span>Usulkan Coffee Shop Baru</span>
+</a>
+</div>
+</div>
+<!-- Right: Live Activity Minimal Card -->
+<div class="lg:col-span-4 bg-zinc-800/80 border border-zinc-700/70 p-5 rounded-2xl flex flex-col gap-3">
+<span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Laporan Terverifikasi Terakhir</span>
+<div class="flex items-center gap-3 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-700/40">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="text-xs font-semibold text-zinc-200 truncate">Kohi Roastery (Sukun)</span>
+<span class="text-[10px] text-zinc-400">Sepi • Baru saja oleh @arema_coffee</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-700/40">
+<span class="w-2 h-2 rounded-full bg-rose-500"></span>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="text-xs font-semibold text-zinc-200 truncate">Retrorika Garden (Batu-Malang)</span>
+<span class="text-[10px] text-zinc-400">Ramai • 8 mnt lalu oleh @dimas_n</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-700/40">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="text-xs font-semibold text-zinc-200 truncate">Kopi Kayutangan No. 12</span>
+<span class="text-[10px] text-zinc-400">Sedang • 14 mnt lalu oleh @citra_m</span>
+</div>
+</div>
+<div class="pt-1 flex items-center justify-between text-[11px] text-zinc-400 border-t border-zinc-700/50">
+<span>Akurasi Laporan</span>
+<span class="text-emerald-400 font-bold">96.4%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MODAL POPUP -->
+<div class="fixed inset-0 z-50 hidden bg-zinc-950/60 backdrop-blur-xs flex items-center justify-center p-4" id="report-modal">
+<div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-zinc-200 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-base font-bold text-zinc-900">Laporkan Kepadatan Kedai</h3>
+<button class="w-7 h-7 rounded-full hover:bg-zinc-100 flex items-center justify-center text-zinc-400 hover:text-zinc-700 transition-colors" onclick="closeReportModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="text-xs text-zinc-500">
+          Pilih kedai tempatmu berada dan laporkan kondisi keramaian saat ini:
+        </p>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-zinc-700">Pilih Kedai Terdekat</label>
+<select class="w-full p-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs text-zinc-900 focus:outline-none focus:border-zinc-400">
+<option>Kedai Kopi Oen &amp; Heritage (Klojen)</option>
+<option>Bataputih Coffee &amp; Space (Lowokwaru)</option>
+<option>Sehidup Sekebun Coffee (Dau)</option>
+<option>Toko Kopi Kongca (Kotabaru)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-zinc-700">Status Kepadatan Saat Ini</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="p-2.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-xs font-semibold flex flex-col items-center gap-1 hover:bg-emerald-100 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+              Sepi
+            </button>
+<button class="p-2.5 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 text-xs font-semibold flex flex-col items-center gap-1 hover:bg-amber-100 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-amber-600"></span>
+              Sedang
+            </button>
+<button class="p-2.5 rounded-xl border border-rose-200 bg-rose-50 text-rose-800 text-xs font-semibold flex flex-col items-center gap-1 hover:bg-rose-100 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-rose-600"></span>
+              Ramai
+            </button>
+</div>
+</div>
+<div class="pt-2 flex items-center justify-end gap-2 border-t border-zinc-100">
+<button class="px-3.5 py-1.5 text-zinc-500 hover:text-zinc-800 text-xs font-medium" onclick="closeReportModal()">Batal</button>
+<button class="px-4 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold rounded-xl" onclick="submitReportModal()">Kirim Laporan</button>
+</div>
+</div>
+</div>
+</main>
+<!-- MINIMALIST FOOTER -->
+<footer class="w-full bg-white border-t border-zinc-200/80 pt-16 pb-12">
+<div class="max-w-[1240px] mx-auto px-5 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
+<div class="lg:col-span-4 flex flex-col gap-3">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-lg bg-zinc-900 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[16px]">local_cafe</span>
+</div>
+<span class="text-base font-bold text-zinc-900">NgopiMalang</span>
+</div>
+<p class="text-xs text-zinc-500 leading-relaxed max-w-sm">
+            Direktori kurasi independen ruang seduh kopi, spot nugas kondusif, dan kultur ngopi autentik Kota Malang. Dari denyut heritage Kayutangan hingga sudut tenang lereng bukit.
+          </p>
+<div class="flex items-center gap-2 text-zinc-600 text-xs font-medium mt-1">
+<span class="material-symbols-outlined text-amber-700 text-[16px]">verified</span>
+<span>Dikurasi mandiri oleh komunitas penikmat kopi Malang</span>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-2.5">
+<span class="text-xs font-bold text-zinc-900 uppercase tracking-wider">Eksplorasi Area</span>
+<nav class="flex flex-col gap-2 text-xs text-zinc-500">
+<a class="hover:text-zinc-900 transition-colors" data-path="jelajahi-klojen" href="#">Klojen &amp; Heritage Kayutangan</a>
+<a class="hover:text-zinc-900 transition-colors" data-path="jelajahi-lowokwaru" href="#">Lowokwaru &amp; Kampus Hub</a>
+<a class="hover:text-zinc-900 transition-colors" data-path="jelajahi-sukun" href="#">Sukun &amp; Roastery Artisanal</a>
+<a class="hover:text-zinc-900 transition-colors" data-path="jelajahi-blimbing" href="#">Blimbing &amp; Urban Spaces</a>
+<a class="hover:text-zinc-900 transition-colors" data-path="jelajahi-kedungkandang" href="#">Kedungkandang &amp; Hidden Gems</a>
+</nav>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-2.5">
+<span class="text-xs font-bold text-zinc-900 uppercase tracking-wider">Panduan &amp; Komunitas</span>
+<nav class="flex flex-col gap-2 text-xs text-zinc-500">
+<a class="hover:text-zinc-900 transition-colors" data-path="usulkan-tempat" href="#">Usulkan Kedai Baru</a>
+<a class="hover:text-zinc-900 transition-colors" data-path="etika-review" href="#">Etika Review &amp; Crowd Sourcing</a>
+<a class="hover:text-zinc-900 transition-colors" data-path="artikel-panduan" href="#">Rekomendasi Nugas 24 Jam</a>
+<a class="hover:text-zinc-900 transition-colors" data-path="faq" href="#">Pertanyaan Umum (FAQ)</a>
+</nav>
+</div>
+<div class="lg:col-span-2 flex flex-col gap-2.5">
+<span class="text-xs font-bold text-zinc-900 uppercase tracking-wider">Indikator Live</span>
+<p class="text-[11px] text-zinc-500 leading-normal">
+            Data kepadatan pengunjung diperbarui berdasarkan laporan riil pengunjung dan check-in komunitas.
+          </p>
+<div class="flex flex-col gap-1.5 text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+<span class="text-zinc-600 text-[11px]">Sepi (Kondusif)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-600"></span>
+<span class="text-zinc-600 text-[11px]">Sedang (Hangat)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-rose-600"></span>
+<span class="text-zinc-600 text-[11px]">Ramai (Penuh Energi)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-6 border-t border-zinc-100 flex flex-col md:flex-row items-center justify-between gap-3 text-zinc-400 text-xs">
+<p class="text-center md:text-left">© 2025 NgopiMalang. Direktori Kopi Independen Kota Malang. Seluruh hak cipta dilindungi.</p>
+<p class="text-center md:text-right text-[11px]">Disclaimer: Indikator kepadatan bersifat estimasi kerumunan waktu riil.</p>
+</div>
+</div>
+</footer>
+<script>
+    function toggleQuickFilter(btn, filterKey) {
+      const isSelected = btn.classList.contains('bg-zinc-900');
+      if (isSelected) {
+        btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900');
+        btn.classList.add('bg-white', 'text-zinc-600', 'border-zinc-200');
+      } else {
+        btn.classList.remove('bg-white', 'text-zinc-600', 'border-zinc-200');
+        btn.classList.add('bg-zinc-900', 'text-white', 'border-zinc-900');
+      }
+    }
+
+    function triggerSearch() {
+      const input = document.getElementById('hero-search-input');
+      const val = input ? input.value.trim() : '';
+      if (val) {
+        alert('Mencari kedai dengan kata kunci: ' + val);
+      } else {
+        alert('Menampilkan seluruh kedai terkurasi di Malang.');
+      }
+    }
+
+    function toggleBookmark(btn) {
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon) {
+        if (icon.innerText === 'favorite_border') {
+          icon.innerText = 'favorite';
+          icon.style.fontVariationSettings = "'FILL' 1";
+          btn.classList.add('text-rose-600');
+        } else {
+          icon.innerText = 'favorite_border';
+          icon.style.fontVariationSettings = "'FILL' 0";
+          btn.classList.remove('text-rose-600');
+        }
+      }
+    }
+
+    function openReportModal() {
+      const m = document.getElementById('report-modal');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeReportModal() {
+      const m = document.getElementById('report-modal');
+      if (m) m.classList.add('hidden');
+    }
+
+    function submitReportModal() {
+      alert('Terima kasih! Laporan situasi kedai Anda berhasil dikirim ke komunitas NgopiMalang.');
+      closeReportModal();
+    }
+  </script>
+<script src="./site.js"></script></body></html>
+
